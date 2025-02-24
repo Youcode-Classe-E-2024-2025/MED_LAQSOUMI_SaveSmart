@@ -39,7 +39,12 @@ class AuthController extends Controller
         if (!$user || !Hash::check($validated['password'], $user->password)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return response()->json($user);
+        $userName = $user->username;
+        $name = $user->name;
+        $email = $user->email;
+        $createdAt = $user->created_at;
+        $updatedAt = $user->updated_at;
+        return view('dashboard.index', compact('userName', 'name', 'email', 'createdAt', 'updatedAt'));
     }
     
 }
