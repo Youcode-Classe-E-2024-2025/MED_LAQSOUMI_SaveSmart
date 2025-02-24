@@ -77,15 +77,15 @@
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
-                                JS
+                                {{ substr($name, 0, 1) }}
                             </div>
-                            <span class="hidden md:block">John Smith</span>
+                            <span class="hidden md:block">{{ $name }}</span>
                             <i class="fas fa-chevron-down text-xs text-gray-400"></i>
                         </button>
                         <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
                             <div class="p-3 border-b border-gray-700">
-                                <p class="font-semibold">John Smith</p>
-                                <p class="text-sm text-gray-400">john.smith@example.com</p>
+                                <p class="font-semibold">{{ $name }}</p>
+                                <p class="text-sm text-gray-400">{{ $email }}</p>
                             </div>
                             <div>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
@@ -95,7 +95,8 @@
                                     <i class="fas fa-users mr-2 text-yellow-400"></i> Family Members
                                 </a>
                                 <form action="{{ route('logout.user') }}" method="POST">
-                                    @@csrf
+                                    @csrf
+                                    @method('POST')
                                     <a href="" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
                                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                     </a>

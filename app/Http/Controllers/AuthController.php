@@ -30,7 +30,13 @@ class AuthController extends Controller
     }
 
     public function loginUser()
-    {
+    {   
+        if(request()->isMethod('get') && !request()->session()->has('user')) {
+            return view('auth.login');
+        }elseif(request()->isMethod('get') && request()->session()->has('user')) {
+            $user = request()->session()->get('user');
+            return view('dashboard.index', compact('user'));
+        }
         $validated = request()->validate([
             'email' => 'required|email|max:255',
             'password' => 'required|string|min:8|max:255',
@@ -45,16 +51,15 @@ class AuthController extends Controller
         $created_at = $user->created_at;
         $updated_at = $user->updated_at;
         request()->session()->put('user', compact('userName', 'name', 'email', 'created_at', 'updated_at'));
-        return view('dashboard.index', compact('userName', 'name', 'email', 'created_at', 'updated_at'));
+        return view('dashboard.index', ['userName' => $userName, 'name' => $name, 'email' => $email, 'created_at' => $created_at, 'updated_at' => $updated_at]);
     }
 
     public function logoutUser()
     {   
-        $user = User::where('email', request()->email)->first();
-        if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if(request()->session()->has('user')) {
+            request()->session()->forget('user');
+            return redirect()->route('home');
         }
-        $logout = User::destroy($user->id);
-        return response()->json(['message' => 'Logged out'], 200);
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 }
