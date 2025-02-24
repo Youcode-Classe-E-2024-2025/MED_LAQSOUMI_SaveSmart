@@ -94,9 +94,12 @@
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
                                     <i class="fas fa-users mr-2 text-yellow-400"></i> Family Members
                                 </a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                                </a>
+                                <form action="{{ route('logout.user') }}" method="POST">
+                                    @@csrf
+                                    <a href="" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    </a>
+                                </form>
                             </div>
                         </div>
                     </div>

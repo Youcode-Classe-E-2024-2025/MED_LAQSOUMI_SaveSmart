@@ -42,9 +42,19 @@ class AuthController extends Controller
         $userName = $user->username;
         $name = $user->name;
         $email = $user->email;
-        $createdAt = $user->created_at;
-        $updatedAt = $user->updated_at;
-        return view('dashboard.index', compact('userName', 'name', 'email', 'createdAt', 'updatedAt'));
+        $created_at = $user->created_at;
+        $updated_at = $user->updated_at;
+        request()->session()->put('user', compact('userName', 'name', 'email', 'created_at', 'updated_at'));
+        return view('dashboard.index', compact('userName', 'name', 'email', 'created_at', 'updated_at'));
     }
-    
+
+    public function logoutUser()
+    {   
+        $user = User::where('email', request()->email)->first();
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $logout = User::destroy($user->id);
+        return response()->json(['message' => 'Logged out'], 200);
+    }
 }
