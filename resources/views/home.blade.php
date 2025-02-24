@@ -87,6 +87,14 @@
                         </h2>
                         <div class="space-y-6">
                             <div class="group">
+                                <label for="register-username" class="block mb-2 text-sm text-gray-300">
+                                    <i class="fas fa-user mr-2 text-yellow-400"></i>Username
+                                </label>
+                                <input type="text" id="register-username" name="username"
+                                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
+                                    placeholder="Enter your username">
+                            </div>
+                            <div class="group">
                                 <label for="register-name" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-user mr-2 text-yellow-400"></i>Name
                                 </label>
