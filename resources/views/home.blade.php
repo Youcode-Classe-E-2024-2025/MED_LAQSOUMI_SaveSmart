@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-gradient text-white min-h-screen">
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-gradient text-gray-900 min-h-screen">
     <div class="backdrop-blur-sm bg-black/30 min-h-screen">
         <header class="w-full py-6 bg-black/40 backdrop-blur-md fixed top-0 z-50">
             <nav class="container mx-auto px-4 flex justify-between items-center">
@@ -44,7 +44,8 @@
             <div class="w-full max-w-md relative">
                 <!-- Login Form -->
                 <div id="login-container" class="transform transition-all duration-500 ease-in-out opacity-100 scale-100">
-                    <div class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                    <form action="" method="POST" class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                        @csrf
                         <h2 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                             Welcome Back
                         </h2>
@@ -53,7 +54,7 @@
                                 <label for="login-email" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-envelope mr-2 text-yellow-400"></i>Email
                                 </label>
-                                <input type="email" id="login-email" 
+                                <input type="email" id="login-email" name="email"
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your email">
                             </div>
@@ -61,11 +62,11 @@
                                 <label for="login-password" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-lock mr-2 text-yellow-400"></i>Password
                                 </label>
-                                <input type="password" id="login-password" 
+                                <input type="password" id="login-password" name="password"
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your password">
                             </div>
-                            <button class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
+                            <button type="submit" class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
                                 Login
                             </button>
                             <div class="text-center">
@@ -74,12 +75,13 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Register Form -->
                 <div id="register-container" class="hidden transform transition-all duration-500 ease-in-out absolute top-0 left-0 w-full opacity-0 scale-0">
-                    <div class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                    <form action="{{ route('create.user') }}" method="POST" class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                        @csrf
                         <h2 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                             Create Account
                         </h2>
@@ -88,7 +90,7 @@
                                 <label for="register-name" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-user mr-2 text-yellow-400"></i>Name
                                 </label>
-                                <input type="text" id="register-name" 
+                                <input type="text" id="register-name" name="name"
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your name">
                             </div>
@@ -96,7 +98,7 @@
                                 <label for="register-email" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-envelope mr-2 text-yellow-400"></i>Email
                                 </label>
-                                <input type="email" id="register-email" 
+                                <input type="email" id="register-email" name="email"
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your email">
                             </div>
@@ -104,11 +106,11 @@
                                 <label for="register-password" class="block mb-2 text-sm text-gray-300">
                                     <i class="fas fa-lock mr-2 text-yellow-400"></i>Password
                                 </label>
-                                <input type="password" id="register-password" 
+                                <input type="password" id="register-password" name="password"
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your password">
                             </div>
-                            <button class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
+                            <button type="submit" class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
                                 Register
                             </button>
                             <div class="text-center">
@@ -117,7 +119,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </main>
