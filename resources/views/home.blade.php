@@ -44,7 +44,7 @@
             <div class="w-full max-w-md relative">
                 <!-- Login Form -->
                 <div id="login-container" class="transform transition-all duration-500 ease-in-out opacity-100 scale-100">
-                    <form action="" method="POST" class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
+                    <form action="{{ route('login.user') }}" method="POST" class="bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700/50">
                         @csrf
                         <h2 class="text-2xl font-bold mb-6 text-center bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                             Welcome Back

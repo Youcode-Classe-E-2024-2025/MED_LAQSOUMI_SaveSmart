@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -25,6 +26,19 @@ class AuthController extends Controller
         $validated['email_verified_at'] = now();
         $validated['remember_token'] = Str::random(54);
         $user = User::create($validated);
+        return response()->json($user);
+    }
+
+    public function loginUser()
+    {
+        $validated = request()->validate([
+            'email' => 'required|email|max:255',
+            'password' => 'required|string|min:8|max:255',
+        ]);
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
         return response()->json($user);
     }
     
