@@ -32,7 +32,7 @@
                         SaveSmart
                     </h1>
                 </div>
-                <div class="hidden md:flex space-x-6">
+                <div class="hidden md:flex space-x-6 text-gray-400">
                     <a href="#" class="hover:text-yellow-400 transition-colors duration-300">About</a>
                     <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Features</a>
                     <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Contact</a>

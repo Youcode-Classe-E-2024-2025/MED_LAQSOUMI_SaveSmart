@@ -52,7 +52,7 @@ class AuthController extends Controller
         $request->session()->put('email_verified_at', $user->email_verified_at);
         $request->session()->put('remember_token', $user->remember_token);
         $request->session()->regenerate();
-        return view('dashboard.index', $user,$user->name,$user->username)->with('success', 'Welcome back '. $user->name);
+        return view('dashboard.index', ['user' => $user, 'name' => $user->name, 'username' => $user->username])->with('success', 'Welcome back '. $user->name);
     }
 
     public function logout(Request $request)
