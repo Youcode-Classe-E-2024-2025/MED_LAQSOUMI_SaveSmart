@@ -29,7 +29,7 @@ class AuthController extends Controller
         return response()->json($user);
     }
 
-    public function loginUser()
+    public function loginUser(Request $request)
     {   
         if(request()->isMethod('get') && !request()->session()->has('user')) {
             return view('auth.login');
@@ -45,21 +45,19 @@ class AuthController extends Controller
         if (!$user || !Hash::check($validated['password'], $user->password)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        $userName = $user->username;
-        $name = $user->name;
-        $email = $user->email;
-        $created_at = $user->created_at;
-        $updated_at = $user->updated_at;
-        request()->session()->put('user', compact('userName', 'name', 'email', 'created_at', 'updated_at'));
-        return view('dashboard.index', ['userName' => $userName, 'name' => $name, 'email' => $email, 'created_at' => $created_at, 'updated_at' => $updated_at]);
+        $request->session()->put('user', $user);
+        $request->session()->put('name', $user->name);
+        $request->session()->put('username', $user->username);
+        $request->session()->put('email', $user->email);
+        $request->session()->put('email_verified_at', $user->email_verified_at);
+        $request->session()->put('remember_token', $user->remember_token);
+        $request->session()->regenerate();
+        return view('dashboard.index', $user,$user->name,$user->username)->with('success', 'Welcome back '. $user->name);
     }
 
-    public function logoutUser()
-    {   
-        if(request()->session()->has('user')) {
-            request()->session()->forget('user');
-            return redirect()->route('home');
-        }
-        return response()->json(['error' => 'Unauthorized'], 401);
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect()->route('home');
     }
 }

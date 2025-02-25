@@ -77,15 +77,14 @@
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
-                                {{ substr($name, 0, 1) }}
+                                {{ substr($user->name, 0, 1) }}
                             </div>
-                            <span class="hidden md:block">{{ $name }}</span>
+                            <span class="hidden md:block">{{ $user->name }}</span>
                             <i class="fas fa-chevron-down text-xs text-gray-400"></i>
                         </button>
                         <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
                             <div class="p-3 border-b border-gray-700">
-                                <p class="font-semibold">{{ $name }}</p>
-                                <p class="text-sm text-gray-400">{{ $email }}</p>
+                                <p class="font-semibold">{{ $user->name }}</p>
                             </div>
                             <div>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
@@ -97,9 +96,9 @@
                                 <form action="{{ route('logout.user') }}" method="POST">
                                     @csrf
                                     @method('POST')
-                                    <a href="" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
+                                    <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
                                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                                    </a>
+                                    </button>
                                 </form>
                             </div>
                         </div>
