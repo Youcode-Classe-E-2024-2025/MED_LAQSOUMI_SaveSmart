@@ -66,6 +66,8 @@
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your password">
                             </div>
+                            @include('layouts.error')
+                            @include('layouts.success')
                             <button type="submit" class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
                                 Login
                             </button>
@@ -118,6 +120,8 @@
                                     class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                                     placeholder="Enter your password">
                             </div>
+                            @include('layouts.error')
+                            @include('layouts.success')
                             <button type="submit" class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-[1.02] transition-all duration-300">
                                 Register
                             </button>
