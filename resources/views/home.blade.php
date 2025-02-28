@@ -38,17 +38,14 @@
                 <i class="fas fa-wallet text-amber-400 text-2xl"></i>
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
             </div>
-            <div class="hidden md:flex gap-6">
-                <a href="#" class="text-white/70 no-underline font-medium transition-all duration-300 hover:text-amber-400">Features</a>
-                <a href="#" class="text-white/70 no-underline font-medium transition-all duration-300 hover:text-amber-400">Pricing</a>
-                <a href="#" class="text-white/70 no-underline font-medium transition-all duration-300 hover:text-amber-400">About</a>
-                <a href="#" class="text-white/70 no-underline font-medium transition-all duration-300 hover:text-amber-400">Contact</a>
-            </div>
             <div class="flex items-center gap-4">
-                <button class="bg-transparent border-2 border-amber-400 text-amber-400 py-2 px-6 rounded-md font-medium cursor-pointer transition-all duration-300 hover:bg-amber-400 hover:text-gray-900">Login</button>
-                <button class="md:hidden bg-transparent border-none text-white text-2xl cursor-pointer" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <form action="{{ route('login.user') }}" method="GET" class="hidden md:flex gap-4">
+                    @csrf
+                    <button class="bg-transparent border-2 border-amber-400 text-amber-400 py-2 px-6 rounded-md font-medium cursor-pointer transition-all duration-300 hover:bg-amber-400 hover:text-gray-900">Login</button>
+                    <button class="md:hidden bg-transparent border-none text-white text-2xl cursor-pointer" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </form>
             </div>
         </header>
 
@@ -60,47 +57,13 @@
                 <p class="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">SaveSmart helps you track expenses, set budgets, and achieve your savings goals with powerful yet simple tools.</p>
                 
                 <div class="flex flex-col md:flex-row gap-4 mb-12 md:w-auto w-full max-w-xs">
+                    <form action="{{ route('login.user') }}" method="GET" class="hidden md:flex gap-4">
+                        @csrf
                     <button class="bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 border-none py-3.5 px-8 rounded-lg font-semibold text-base cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-400/30">Get Started — It's Free</button>
                     <button class="bg-white/10 text-white border-none py-3.5 px-8 rounded-lg font-medium text-base cursor-pointer transition-all duration-300 hover:bg-white/20 hover:transform hover:-translate-y-1">How It Works</button>
-                </div>
-                
-                <img src="/api/placeholder/600/340" alt="SaveSmart app preview" class="max-w-full rounded-xl shadow-2xl shadow-black/40">
-            </section>
-            
-            <!-- Features Section -->
-            <section class="py-16 px-8 flex flex-col items-center">
-                <h2 class="text-4xl font-semibold text-center mb-12">Why choose <span class="text-amber-400">SaveSmart</span>?</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full">
-                    <!-- Feature 1 -->
-                    <div class="bg-gray-800/70 rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 border border-white/10 hover:transform hover:-translate-y-2.5 hover:border-amber-400/30 hover:shadow-xl hover:shadow-black/30">
-                        <div class="w-[70px] h-[70px] rounded-xl flex items-center justify-center text-3xl mb-6 bg-gradient-to-br from-amber-400 to-amber-500 text-gray-900">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Easy Expense Tracking</h3>
-                        <p class="text-white/70 leading-relaxed">Automatically categorize your expenses and get insights on your spending habits with beautiful visualizations.</p>
-                    </div>
-                    
-                    <!-- Feature 2 -->
-                    <div class="bg-gray-800/70 rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 border border-white/10 hover:transform hover:-translate-y-2.5 hover:border-amber-400/30 hover:shadow-xl hover:shadow-black/30">
-                        <div class="w-[70px] h-[70px] rounded-xl flex items-center justify-center text-3xl mb-6 bg-gradient-to-br from-amber-400 to-amber-500 text-gray-900">
-                            <i class="fas fa-piggy-bank"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Smart Saving Goals</h3>
-                        <p class="text-white/70 leading-relaxed">Set personalized saving goals and track your progress. SaveSmart helps you stay motivated and on target.</p>
-                    </div>
-                    
-                    <!-- Feature 3 -->
-                    <div class="bg-gray-800/70 rounded-xl p-8 flex flex-col items-center text-center transition-all duration-300 border border-white/10 hover:transform hover:-translate-y-2.5 hover:border-amber-400/30 hover:shadow-xl hover:shadow-black/30">
-                        <div class="w-[70px] h-[70px] rounded-xl flex items-center justify-center text-3xl mb-6 bg-gradient-to-br from-amber-400 to-amber-500 text-gray-900">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-4">Bank-Level Security</h3>
-                        <p class="text-white/70 leading-relaxed">Your financial data is protected with industry-leading encryption and security practices.</p>
-                    </div>
+                    </form>
                 </div>
             </section>
-            
             <!-- Testimonials Section -->
             <section class="py-16 px-8 flex flex-col items-center bg-black/20">
                 <h2 class="text-4xl font-semibold text-center mb-12">What our users say</h2>
@@ -158,29 +121,10 @@
                     </div>
                 </div>
             </section>
-            
-            <!-- CTA Section -->
-            <section class="py-24 px-8 flex flex-col items-center text-center">
-                <h2 class="text-4xl font-semibold mb-6">Ready to take control of your finances?</h2>
-                <p class="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">Join thousands of users who have transformed their financial lives with SaveSmart.</p>
-                
-                <div class="md:w-auto w-full max-w-xs">
-                    <button class="bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 border-none py-3.5 px-8 rounded-lg font-semibold text-base cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-400/30 w-full">Create Free Account</button>
-                </div>
-            </section>
         </main>
 
         <!-- Footer -->
         <footer class="p-8 text-center text-sm text-white/50 bg-black/40 backdrop-blur-md">
-            <div class="flex flex-wrap justify-center gap-6 mb-6">
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">Features</a>
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">Pricing</a>
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">About</a>
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">Contact</a>
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">Privacy Policy</a>
-                <a href="#" class="text-white/70 no-underline transition-all duration-300 hover:text-amber-400">Terms of Service</a>
-            </div>
-            
             <div class="flex justify-center gap-4 mb-6">
                 <a href="#" class="text-white/70 text-xl transition-all duration-300 hover:text-amber-400"><i class="fab fa-twitter"></i></a>
                 <a href="#" class="text-white/70 text-xl transition-all duration-300 hover:text-amber-400"><i class="fab fa-facebook"></i></a>
