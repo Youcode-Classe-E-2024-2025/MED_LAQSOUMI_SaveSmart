@@ -39,13 +39,10 @@
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
             </div>
             <div class="flex items-center gap-4">
-                <form action="{{ route('login.user') }}" method="GET" class="hidden md:flex gap-4">
-                    @csrf
-                    <button class="bg-transparent border-2 border-amber-400 text-amber-400 py-2 px-6 rounded-md font-medium cursor-pointer transition-all duration-300 hover:bg-amber-400 hover:text-gray-900">Login</button>
-                    <button class="md:hidden bg-transparent border-none text-white text-2xl cursor-pointer" id="mobileMenuBtn">
+                    <a href="{{ route('login.user') }}" class="bg-transparent border-2 border-amber-400 text-amber-400 py-2 px-6 rounded-md font-medium cursor-pointer transition-all duration-300 hover:bg-amber-400 hover:text-gray-900">Login</a>
+                    <a href="{{ route('login.user') }}"  class="md:hidden bg-transparent border-none text-white text-2xl cursor-pointer" id="mobileMenuBtn">
                         <i class="fas fa-bars"></i>
-                    </button>
-                </form>
+                    </a>
             </div>
         </header>
 
@@ -55,13 +52,9 @@
             <section class="flex flex-col items-center text-center p-16 bg-black/20">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6 max-w-4xl">Smart financial planning for <span class="text-amber-400">everyone</span></h1>
                 <p class="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">SaveSmart helps you track expenses, set budgets, and achieve your savings goals with powerful yet simple tools.</p>
-                
                 <div class="flex flex-col md:flex-row gap-4 mb-12 md:w-auto w-full max-w-xs">
-                    <form action="{{ route('login.user') }}" method="GET" class="hidden md:flex gap-4">
-                        @csrf
-                    <button class="bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 border-none py-3.5 px-8 rounded-lg font-semibold text-base cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-400/30">Get Started — It's Free</button>
-                    <button class="bg-white/10 text-white border-none py-3.5 px-8 rounded-lg font-medium text-base cursor-pointer transition-all duration-300 hover:bg-white/20 hover:transform hover:-translate-y-1">How It Works</button>
-                    </form>
+                    <a href="{{ route('register.user') }}" class="bg-gradient-to-r from-amber-400 to-amber-500 text-gray-900 border-none py-3.5 px-8 rounded-lg font-semibold text-base cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-400/30">Get Started — It's Free</button>
+                    <a class="bg-white/10 text-white border-none py-3.5 px-8 rounded-lg font-medium text-base cursor-pointer transition-all duration-300 hover:bg-white/20 hover:transform hover:-translate-y-1">How It Works</a>
                 </div>
             </section>
             <!-- Testimonials Section -->
