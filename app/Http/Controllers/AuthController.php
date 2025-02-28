@@ -17,26 +17,28 @@ class AuthController extends Controller
 
     public function createUser()
     {
+        if(request()->isMethod('get')) {
+            return view('register');
+        }
         $validated = request()->validate([
             'username' => 'required|string|unique:users|max:55|min:3',
             'name' => 'required|string|max:55|min:3',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:255',
         ]);
-        $validated['password'] = bcrypt($validated['password']);
-        $validated['email_verified_at'] = now();
-        $validated['remember_token'] = Str::random(54);
-        $user = User::create($validated);
-        return redirect()->route('login.user')->with('success', 'Account created successfully! Please login to continue.');
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['remember_token'] = Str::random(10);
+        $session = User::create($validated);
+        return redirect()->route('login.user', $session)->with('success', 'Account created successfully! Please login to continue.');
     }
 
     public function loginUser(Request $request)
     {   
         if ($request->isMethod('get') && !$request->session()->has('user')) {
-            return view('home');
+            return view('auth');
         } elseif ($request->isMethod('get') && $request->session()->has('user')) {
             $user = $request->session()->get('user');
-            return view('dashboard.index', compact('user'));
+            return view('profile', compact('user'));
         }
 
         $validated = $request->validate([
@@ -58,7 +60,7 @@ class AuthController extends Controller
         $request->session()->put('remember_token', $user->remember_token);
         $request->session()->regenerate();
 
-        return view('dashboard.index', ['user' => $user, 'name' => $user->name, 'username' => $user->username])->with('success', 'Welcome back '. $user->name);
+        return view('profile', ['user' => $user, 'name' => $user->name, 'username' => $user->username])->with('success', 'Welcome back '. $user->name);
     }
 
     public function logout(Request $request)
