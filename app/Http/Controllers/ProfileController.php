@@ -16,9 +16,9 @@ class ProfileController extends Controller
         $auth = Auth::check();
         if ($auth) {
             $user = Auth::user();
-            return view('profile.profile', ['user' => $user])->with('success', 'Login successful!');
+            return view('profile.profile', ['user' => $user]);
         }else {
-            return redirect()->route('login.user')->with('error', 'Please login to view your profile.');
+            return redirect()->route('login.user');
         }
     }
 
