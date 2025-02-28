@@ -38,7 +38,7 @@ class AuthController extends Controller
             return view('auth');
         } elseif ($request->isMethod('get') && $request->session()->has('user')) {
             $user = $request->session()->get('user');
-            return view('profile', compact('user'));
+            return view('profile');
         }
 
         $validated = $request->validate([
