@@ -35,17 +35,19 @@
 <body class="font-poppins text-white min-h-screen m-0 flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-[length:200%_200%] animate-gradient">
     <div class="backdrop-blur-md bg-black/30 min-h-screen flex flex-col">
         <!-- Header -->
-        <header class="p-6 bg-black/60 backdrop-blur-md">
+        <header class="p-6 bg-black/60 backdrop-blur-md flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <i class="fas fa-wallet text-amber-400 text-2xl"></i>
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
-                <form action="{{ route('logout.user') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                    </button>
-                </form>
+            <i class="fas fa-wallet text-amber-400 text-2xl"></i>
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
+            </div>
+            <div>
+            <form action="{{ route('logout.user') }}" method="POST">
+                @csrf
+                @method('POST')
+                <button type="submit" class="px-4 py-2 text-red-400 hover:text-red-300 flex items-center gap-2 transition-colors duration-200 border border-transparent hover:border-red-500/30 rounded-md">
+                <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
             </div>
         </header>
 
