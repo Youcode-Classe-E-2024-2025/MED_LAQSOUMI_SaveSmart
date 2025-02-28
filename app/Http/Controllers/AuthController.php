@@ -57,13 +57,12 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Invalid login details!');
         }
         Auth::login($user);
-        return redirect()->route('profile', $user);
+        return redirect()->route('profile');
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-        $request->session()->flush();
-        return redirect()->route('home');
+        return redirect()->route('login.user')->with('success', 'Logout successful!');
     }
 }
