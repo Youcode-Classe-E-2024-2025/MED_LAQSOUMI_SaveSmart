@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FamilyAccount;
+use App\Models\FamilyMember;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +19,11 @@ class ProfileController extends Controller
         $auth = Auth::check();
         if ($auth) {
             $user = Auth::user();
-            return view('profile.profile', ['user' => $user]);
+            // $family = FamilyAccount::where('id', $user->id)->first();
+            $familyAccountId = FamilyMember::where('user_id', $user->id)->first();
+            $familyMembers = FamilyMember::where('family_account_id', $familyAccountId)->get();
+            // $family = FamilyAccount::where('id', $familyMembers->family_account_id)->first();
+            return view('profile.profile', ['user' => $user, 'familyMembers' => $familyMembers]);
         }else {
             return redirect()->route('login.user');
         }

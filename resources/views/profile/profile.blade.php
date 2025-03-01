@@ -1,7 +1,5 @@
-<!-- filepath: /home/medlaq777/Desktop/SaveSmart/resources/views/profile.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,23 +29,22 @@
         }
     </script>
 </head>
-
 <body class="font-poppins text-white min-h-screen m-0 flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 bg-[length:200%_200%] animate-gradient">
     <div class="backdrop-blur-md bg-black/30 min-h-screen flex flex-col">
         <!-- Header -->
         <header class="p-6 bg-black/60 backdrop-blur-md flex justify-between items-center">
             <div class="flex items-center gap-2">
-            <i class="fas fa-wallet text-amber-400 text-2xl"></i>
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
+                <i class="fas fa-wallet text-amber-400 text-2xl"></i>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent m-0">SaveSmart</h1>
             </div>
             <div>
-            <form action="{{ route('logout.user') }}" method="POST">
-                @csrf
-                @method('POST')
-                <button type="submit" class="px-4 py-2 text-red-400 hover:text-red-300 flex items-center gap-2 transition-colors duration-200 border border-transparent hover:border-red-500/30 rounded-md">
-                <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </form>
+                <form action="{{ route('logout.user') }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="px-4 py-2 text-red-400 hover:text-red-300 flex items-center gap-2 transition-colors duration-200 border border-transparent hover:border-red-500/30 rounded-md">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
             </div>
         </header>
 
@@ -56,38 +53,21 @@
             <h2 class="text-4xl mb-8">Who's managing finances today?</h2>
 
             <div class="flex flex-wrap justify-center gap-8 max-w-[900px] mx-auto">
-                <!-- Profile 1 -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('john')">
-                    <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #22c55e, #16a34a);">
-                        <div class="w-full h-full flex items-center justify-center">JS</div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-amber-400 text-xs py-0.5">Admin</div>
+                @foreach($familyMembers as $profile)
+                    <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('{{ $profile->id }}')">
+                        <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #22c55e, #16a34a);">
+                            <div class="w-full h-full flex items-center justify-center">
+                                {{ $profile->name[0] . $profile->surname[0] }}
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-amber-400 text-xs py-0.5">
+                                {{ $profile->role }}
+                            </div>
+                        </div>
+                        <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">
+                            {{ $profile->name }} {{ $profile->surname }}
+                        </div>
                     </div>
-                    <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">John Smith</div>
-                </div>
-
-                <!-- Profile 2 -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('emma')">
-                    <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #3b82f6, #2563eb);">
-                        <div class="w-full h-full flex items-center justify-center">ES</div>
-                    </div>
-                    <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">Emma Smith</div>
-                </div>
-
-                <!-- Profile 3 -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('liam')">
-                    <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #a855f7, #9333ea);">
-                        <div class="w-full h-full flex items-center justify-center">LS</div>
-                    </div>
-                    <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">Liam Smith</div>
-                </div>
-
-                <!-- Profile 4 -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('olivia')">
-                    <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #ec4899, #be185d);">
-                        <div class="w-full h-full flex items-center justify-center">OS</div>
-                    </div>
-                    <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">Olivia Smith</div>
-                </div>
+                @endforeach
 
                 <!-- Add Profile Button -->
                 <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="addProfile()">
@@ -100,7 +80,9 @@
                 </div>
             </div>
 
-            <button class="mt-12 py-3 px-8 bg-transparent border-2 border-white/50 text-white rounded text-base cursor-pointer transition-all duration-300 ease-in-out hover:border-amber-400 hover:text-amber-400" onclick="manageProfiles()">Manage Profiles</button>
+            <button class="mt-12 py-3 px-8 bg-transparent border-2 border-white/50 text-white rounded text-base cursor-pointer transition-all duration-300 ease-in-out hover:border-amber-400 hover:text-amber-400" onclick="manageProfiles()">
+                Manage Profiles
+            </button>
         </main>
 
         <!-- Footer -->
@@ -108,26 +90,5 @@
             <p>&copy; 2025 SaveSmart. All rights reserved.</p>
         </footer>
     </div>
-
-    <script>
-        function selectProfile(profileId) {
-            // In a real application, this would redirect to the dashboard with the selected profile
-            console.log(`Profile selected: ${profileId}`);
-            window.location.href = "/dashboard"; // This would typically include the profile ID as a parameter
-        }
-
-        function addProfile() {
-            // In a real application, this would open a modal or redirect to a profile creation page
-            console.log("Add profile clicked");
-            alert("Add profile functionality would open here");
-        }
-
-        function manageProfiles() {
-            // In a real application, this would redirect to a profile management page
-            console.log("Manage profiles clicked");
-            alert("Manage profiles functionality would open here");
-        }
-    </script>
 </body>
-
 </html>
