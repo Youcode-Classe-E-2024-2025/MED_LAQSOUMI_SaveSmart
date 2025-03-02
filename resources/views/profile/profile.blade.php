@@ -54,24 +54,32 @@
 
             <div class="flex flex-wrap justify-center gap-8 max-w-[900px] mx-auto">
                 <!-- Profile Cards -->
-                @foreach($familyMembers as $profile)
+                @foreach($profiles as $profile)
                     <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="selectProfile('{{ $profile->id }}')">
-                        <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" style="background-image: linear-gradient(to bottom right, #22c55e, #16a34a);">
+                        <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]" 
+                             style="background-image: linear-gradient(to bottom right, 
+                                @if($profile->avatar == 'avatar-green') #22c55e, #16a34a 
+                                @elseif($profile->avatar == 'avatar-blue') #3b82f6, #2563eb 
+                                @elseif($profile->avatar == 'avatar-purple') #a855f7, #7e22ce 
+                                @elseif($profile->avatar == 'avatar-amber') #f59e0b, #d97706 
+                                @elseif($profile->avatar == 'avatar-pink') #ec4899, #be185d 
+                                @else #22c55e, #16a34a @endif
+                            );">
                             <div class="w-full h-full flex items-center justify-center">
-                                {{ $profile->name[0] . $profile->surname[0] }}
+                                {{ substr($profile->name, 0, 1) }}
                             </div>
                             <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-amber-400 text-xs py-0.5">
-                                {{ $profile->role }}
+                                {{ $profile->description ?? 'Profile' }}
                             </div>
                         </div>
                         <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">
-                            {{ $profile->name }} {{ $profile->surname }}
+                            {{ $profile->name }}
                         </div>
                     </div>
                 @endforeach
 
                 <!-- Add Profile Button -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="addProfile()">
+                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="window.location.href='{{ route('profile.create') }}'">
                     <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-dashed border-white/30 transition-all duration-300 ease-in-out overflow-hidden relative bg-slate-500/30">
                         <div class="w-full h-full flex items-center justify-center">
                             <i class="fas fa-plus text-4xl text-white/50 hover:text-amber-400 transition-all duration-300"></i>
@@ -80,7 +88,7 @@
                     <div class="text-xl font-medium transition-all duration-300 ease-in-out hover:text-amber-400">Add Profile</div>
                 </div>
             </div>
-
+            
             <button class="mt-12 py-3 px-8 bg-transparent border-2 border-white/50 text-white rounded text-base cursor-pointer transition-all duration-300 ease-in-out hover:border-amber-400 hover:text-amber-400" onclick="manageProfiles()">
                 Manage Profiles
             </button>

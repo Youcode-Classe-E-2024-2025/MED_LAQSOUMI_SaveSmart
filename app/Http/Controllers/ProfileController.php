@@ -20,7 +20,7 @@ class ProfileController extends Controller
             $user = Auth::user();
             $profile = Profile::where('user_id', $user->id)->first();
             if ($profile) {
-                return redirect()->route('profile.profile', ['id' => $profile->id]);
+                return redirect()->route('profile', ['id' => $profile->id]);
             } else {
                 return redirect()->route('profile.create');
             }
@@ -42,7 +42,15 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $profile = new Profile();
+        $profile->name = $request->name;
+        $profile->description = $request->description;
+        $profile->pin = $request->pin;
+        $profile->avatar = $request->avatar;
+        $profile->user_id = $user->id;
+        $profile->save();
+        return redirect()->route('profile', ['id' => $profile->id]);
     }
 
     /**
@@ -50,11 +58,22 @@ class ProfileController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        $user = Auth::user();
+        // Get all profiles for the user instead of just one
+        $profiles = Profile::where('user_id', $user->id)->get();
+        
+        if ($profiles->isEmpty()) {
+            return redirect()->route('profile.create');
+        }
+        
+        return view('profile.profile', ['profiles' => $profiles]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource.familyMembers
      */
     public function edit(string $id)
     {

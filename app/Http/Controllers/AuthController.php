@@ -57,7 +57,12 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Invalid login details!');
         }
         Auth::login($user);
-        return redirect()->route('profile');
+        $profiles = $user->profiles;
+        if ($profiles->count() > 0) {
+            return redirect()->route('profile', ['id' => $user->id, 'profile' => $profiles])->with('success', 'Login successful!');
+        } else {
+            return redirect()->route('profile.create');
+        }
     }
 
     public function logout(Request $request)

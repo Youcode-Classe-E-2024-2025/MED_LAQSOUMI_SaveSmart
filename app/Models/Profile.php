@@ -17,6 +17,11 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function find($id)
+    {
+        return Profile::where('id', $id)->first();
+    }
+
     // public function transactions()
     // {
     //     return $this->hasMany(Transaction::class);
