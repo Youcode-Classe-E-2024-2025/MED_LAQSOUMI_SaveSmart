@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FamilyAccount;
-use App\Models\FamilyMember;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Profile;
 
 class ProfileController extends Controller
 {
@@ -19,13 +18,14 @@ class ProfileController extends Controller
         $auth = Auth::check();
         if ($auth) {
             $user = Auth::user();
-            // $family = FamilyAccount::where('id', $user->id)->first();
-            $familyAccountId = FamilyMember::where('user_id', $user->id)->first();
-            $familyMembers = FamilyMember::where('family_account_id', $familyAccountId)->get();
-            // $family = FamilyAccount::where('id', $familyMembers->family_account_id)->first();
-            return view('profile.profile', ['user' => $user, 'familyMembers' => $familyMembers]);
-        }else {
-            return redirect()->route('login.user');
+            $profile = Profile::where('user_id', $user->id)->first();
+            if ($profile) {
+                return redirect()->route('profile.profile', ['id' => $profile->id]);
+            } else {
+                return redirect()->route('profile.create');
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
 
@@ -34,7 +34,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('profile.create');
     }
 
     /**

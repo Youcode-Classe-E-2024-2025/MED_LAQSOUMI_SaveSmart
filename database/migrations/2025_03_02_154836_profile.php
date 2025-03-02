@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('family_accounts', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('family_name');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->string('name'); 
+            $table->string('description')->nullable(); 
+            $table->string('pin')->default('0000'); 
+            $table->string('avatar')->nullable(); 
             $table->timestamps();
-        });        
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('family_accounts');
+        Schema::dropIfExists('profiles');
     }
 };
