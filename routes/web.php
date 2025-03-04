@@ -20,4 +20,4 @@ Route::post('/profile/store', [ProfileController::class, 'store'])->name('profil
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
 
 // Dashboard routes
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');

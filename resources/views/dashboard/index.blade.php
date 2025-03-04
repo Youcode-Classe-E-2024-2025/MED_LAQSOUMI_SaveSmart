@@ -73,14 +73,14 @@
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
-                                {{ substr($user->name, 0, 1) }}
+                                {{ $selectedProfile->name[0] }}
                             </div>
-                            <span class="hidden md:block">{{ $user->name }}</span>
+                            <span class="hidden md:block">{{ $selectedProfile->name[0] }}</span>
                             <i class="fas fa-chevron-down text-xs text-gray-400"></i>
                         </button>
                         <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
                             <div class="p-3 border-b border-gray-700">
-                                <p class="font-semibold">{{ $user->name }}</p>
+                                <p class="font-semibold">{{ $selectedProfile->name[0] }}</p>
                             </div>
                             <div>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
