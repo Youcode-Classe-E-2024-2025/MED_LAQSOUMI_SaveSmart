@@ -70,4 +70,12 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('login.user')->with('success', 'Logout successful!');
     }
+
+    public function dashboard(){
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('login.user')->with('error', 'Please login to continue!');
+        }
+        return view('dashboard.index', ['user' => $user]);
+    }
 }
