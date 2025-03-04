@@ -70,10 +70,6 @@
                     </h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button id="notificationBtn" class="text-gray-300 hover:text-yellow-400 transition-colors duration-300 relative">
-                        <i class="fas fa-bell text-xl"></i>
-                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">3</span>
-                    </button>
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
@@ -150,26 +146,15 @@
                         </a>
                         <div class="px-4 py-2">
                             <p class="text-xs text-gray-500 mb-2">Family Members</p>
-                            <div class="space-y-2">
-                                <div class="flex items-center space-x-2">
+                            @foreach($profiles as $member)
+                                <div class="flex items
+                                -center space-x-2">
                                     <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs">
-                                        JS
+                                        {{ substr($member->name, 0, 1) }}
                                     </div>
-                                    <span class="text-sm">John Smith (You)</span>
+                                    <span class="text-sm">{{ $member->name }}</span>
                                 </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs">
-                                        ES
-                                    </div>
-                                    <span class="text-sm">Emma Smith</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-xs">
-                                        LS
-                                    </div>
-                                    <span class="text-sm">Liam Smith</span>
-                                </div>
-                            </div>
+                            @endforeach
                             <button onclick="openModal('addFamilyMemberModal')" class="mt-3 text-xs flex items-center text-yellow-400 hover:text-yellow-300">
                                 <i class="fas fa-plus-circle mr-1"></i> Add Member
                             </button>
@@ -541,48 +526,6 @@
             </form>
         </div>
     </div>
-    <!-- Add Family Member Modal -->
-<div id="addFamilyMemberModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
-    <div class="card rounded-xl w-full max-w-md p-6 m-4">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
-                Add Family Member
-            </h3>
-            <button onclick="closeModal('addFamilyMemberModal')" class="text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <form id="addFamilyMemberForm" class="space-y-4">
-            <div>
-                <label class="block mb-1 text-sm">Full Name</label>
-                <input type="text" name="name" required
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            </div>
-            <div>
-                <label class="block mb-1 text-sm">Email Address</label>
-                <input type="email" name="email" required
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            </div>
-            <div>
-                <label class="block mb-1 text-sm">Role</label>
-                <select name="role" required
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    <option value="adult">Adult</option>
-                    <option value="child">Child</option>
-                </select>
-            </div>
-            <div>
-                <label class="block mb-1 text-sm">Spending Limit (Optional)</label>
-                <input type="number" name="spendingLimit"
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            </div>
-            <button type="submit" 
-                class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600">
-                Add Member
-            </button>
-        </form>
-    </div>
-</div>
 
 <!-- Add Category Modal -->
 <div id="addCategoryModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">

@@ -13,6 +13,7 @@ class DashboardController extends Controller
             return redirect()->route('login.user')->with('error', 'Please login to continue!');
         }
         $profile = Profile::where('user_id', $users->id)->first();
-        return view('dashboard.index', ['user' => $profile]);
+        $profiles = $users->profiles;
+        return view('dashboard.index', ['user' => $profile, 'profiles' => $profiles]);
     }
 }
