@@ -218,6 +218,11 @@
             document.querySelector('input[name="avatar"]:checked')
                 .parentElement.querySelector('div').classList.add('border-amber-400');
         });
+        
+        // For the manage profiles functionality
+        function manageProfiles() {
+            window.location.href = "{{ route('profile.manage',['id' => $profile->id]) }}";
+        }
     </script>
 </body>
 </html>

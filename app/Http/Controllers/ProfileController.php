@@ -64,11 +64,6 @@ class ProfileController extends Controller
         $user = Auth::user();
         // Get all profiles for the user instead of just one
         $profiles = Profile::where('user_id', $user->id)->get();
-        
-        if ($profiles->isEmpty()) {
-            return redirect()->route('profile.create');
-        }
-        
         return view('profile.profile', ['profiles' => $profiles]);
     }
 
@@ -77,7 +72,9 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = Auth::user();
+        $profiles = Profile::where('user_id', $user->id)->get();
+        return view('profile.manage', ['profiles' => $profiles]);
     }
 
     /**

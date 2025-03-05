@@ -15,9 +15,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout.user');
 
 //Profile routes
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/profile/create', [ProfileController::class, 'create'])->name('profile.create');
 Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
+Route::get('/profile/manage/{id}', [ProfileController::class, 'edit'])->name('profile.manage');
 
 // Dashboard routes
 Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
