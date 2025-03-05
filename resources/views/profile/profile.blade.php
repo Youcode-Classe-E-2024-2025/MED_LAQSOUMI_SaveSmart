@@ -80,7 +80,7 @@
                 @endforeach
 
                 <!-- Add Profile Button -->
-                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="window.location.href='{{ route('profile.create') }}'">
+                <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]" onclick="addProfile()">
                     <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-dashed border-white/30 transition-all duration-300 ease-in-out overflow-hidden relative bg-slate-500/30">
                         <div class="w-full h-full flex items-center justify-center">
                             <i class="fas fa-plus text-4xl text-white/50 hover:text-amber-400 transition-all duration-300"></i>
@@ -99,6 +99,125 @@
         <footer class="p-6 text-center text-sm text-white/50 bg-black/40 backdrop-blur-md">
             <p>&copy; 2025 SaveSmart. All rights reserved.</p>
         </footer>
+        
+        <!-- Add Profile Modal -->
+        <div id="profileModal" class="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+            <div class="bg-gray-800/90 border border-gray-700 rounded-xl p-8 max-w-md w-full shadow-2xl transform transition-all duration-300 scale-95">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-semibold bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Add New Profile</h3>
+                    <button onclick="closeModal()" class="text-white/70 hover:text-amber-400 transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <form action="{{ route('profile.store') }}" method="POST" class="space-y-6">
+                    @csrf
+                    <div class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-white/70 mb-1">Profile Name</label>
+                            <input type="text" id="name" name="name" required 
+                                class="w-full px-4 py-3 bg-gray-900/70 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400/50 text-white">
+                        </div>
+                        
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-white/70 mb-1">Description (Optional)</label>
+                            <textarea id="description" name="description" 
+                                class="w-full px-4 py-3 bg-gray-900/70 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400/50 text-white resize-none h-24"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label for="pin" class="block text-sm font-medium text-white/70 mb-1">PIN Code (Default: 0000)</label>
+                            <input type="text" id="pin" name="pin" pattern="[0-9]{4}" maxlength="4" value="0000" 
+                                class="w-full px-4 py-3 bg-gray-900/70 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400/50 text-white"
+                                placeholder="Enter 4-digit PIN">
+                            <p class="text-xs text-white/50 mt-1">Set a 4-digit PIN for profile access</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-white/70 mb-2">Profile Avatar</label>
+                            <div class="flex flex-wrap gap-3 justify-center">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="avatar" value="avatar-green" class="sr-only" checked>
+                                    <div class="w-12 h-12 rounded-full border-2 border-transparent hover:scale-110 transition-transform" 
+                                         style="background-image: linear-gradient(to bottom right, #22c55e, #16a34a);"></div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="avatar" value="avatar-blue" class="sr-only">
+                                    <div class="w-12 h-12 rounded-full border-2 border-transparent hover:scale-110 transition-transform" 
+                                         style="background-image: linear-gradient(to bottom right, #3b82f6, #2563eb);"></div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="avatar" value="avatar-purple" class="sr-only">
+                                    <div class="w-12 h-12 rounded-full border-2 border-transparent hover:scale-110 transition-transform" 
+                                         style="background-image: linear-gradient(to bottom right, #a855f7, #7e22ce);"></div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="avatar" value="avatar-amber" class="sr-only">
+                                    <div class="w-12 h-12 rounded-full border-2 border-transparent hover:scale-110 transition-transform" 
+                                         style="background-image: linear-gradient(to bottom right, #f59e0b, #d97706);"></div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="avatar" value="avatar-pink" class="sr-only">
+                                    <div class="w-12 h-12 rounded-full border-2 border-transparent hover:scale-110 transition-transform" 
+                                         style="background-image: linear-gradient(to bottom right, #ec4899, #be185d);"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 pt-4">
+                        <button type="button" onclick="closeModal()" class="w-1/2 py-3 px-4 bg-transparent border border-gray-600 hover:border-white/50 text-white/70 hover:text-white rounded-lg transition-all duration-200">
+                            Cancel
+                        </button>
+                        <button type="submit" class="w-1/2 py-3 px-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-gray-900 font-medium rounded-lg transition-all duration-200">
+                            Create Profile
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Open modal
+        function addProfile() {
+            const modal = document.getElementById('profileModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+            document.querySelector('#profileModal > div').classList.remove('scale-95');
+            document.querySelector('#profileModal > div').classList.add('scale-100');
+        }
+        
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('profileModal');
+            document.querySelector('#profileModal > div').classList.remove('scale-100');
+            document.querySelector('#profileModal > div').classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }, 200);
+        }
+        
+        // Highlight selected avatar
+        document.querySelectorAll('input[name="avatar"]').forEach(input => {
+            input.addEventListener('change', function() {
+                document.querySelectorAll('input[name="avatar"]').forEach(radio => {
+                    radio.parentElement.querySelector('div').classList.remove('border-amber-400');
+                });
+                
+                if (this.checked) {
+                    this.parentElement.querySelector('div').classList.add('border-amber-400');
+                }
+            });
+        });
+        
+        // Initialize first avatar selection
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('input[name="avatar"]:checked')
+                .parentElement.querySelector('div').classList.add('border-amber-400');
+        });
+    </script>
 </body>
 </html>

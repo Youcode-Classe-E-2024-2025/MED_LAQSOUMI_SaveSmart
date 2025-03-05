@@ -28,10 +28,10 @@ class AuthController extends Controller
     public function createUser()
     {
         $validated = request()->validate([
-            'username' => 'required|string|unique:users|max:55|min:3',
-            'name' => 'required|string|max:55|min:3',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|max:255',
+            'username' => ['required', 'string', 'max:55', 'min:3'],
+            'name' => ['required', 'string', 'max:55', 'min:3'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
         $validated['password'] = Hash::make($validated['password']);
         $validated['remember_token'] = Str::random(10);
@@ -41,15 +41,9 @@ class AuthController extends Controller
 
     public function loginUser(Request $request)
     {   
-        if ($request->isMethod('get') && Auth::check()) {
-            return redirect()->route('profile');
-        }elseif ($request->isMethod('get') && !Auth::check()) {
-            return redirect()->route('login.user');
-        }
-
         $validated = $request->validate([
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|min:8|max:255',
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
         $user = User::where('email', $validated['email'])->first();
@@ -58,11 +52,7 @@ class AuthController extends Controller
         }
         Auth::login($user);
         $profiles = $user->profiles;
-        if ($profiles->count() > 0) {
-            return redirect()->route('profile', ['id' => $user->id, 'profile' => $profiles])->with('success', 'Login successful!');
-        } else {
-            return redirect()->route('profile.create');
-        }
+        return redirect()->route('profile', $user->id)->with('success', 'Login successful!');
     }
 
     public function logout(Request $request)
