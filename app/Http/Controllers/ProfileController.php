@@ -62,7 +62,6 @@ class ProfileController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         $user = Auth::user();
-        // Get all profiles for the user instead of just one
         $profiles = Profile::where('user_id', $user->id)->get();
         return view('profile.profile', ['profiles' => $profiles]);
     }
@@ -90,6 +89,8 @@ class ProfileController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $profile = Profile::find($id);
+        $profile->delete();
+        return redirect()->route('profile');
     }
 }
