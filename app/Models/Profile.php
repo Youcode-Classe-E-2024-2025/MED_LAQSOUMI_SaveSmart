@@ -11,10 +11,14 @@ class Profile extends Model
 
     protected $fillable = ['user_id', 'name','description','pin', 'avatar'];
 
-    // Relation avec l'utilisateur principal
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function findProfileById($id)
+    {
+        return Profile::where('id', $id)->get();
     }
 
     public static function find($id)

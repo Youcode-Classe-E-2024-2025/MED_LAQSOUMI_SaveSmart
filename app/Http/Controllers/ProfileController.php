@@ -30,12 +30,27 @@ class ProfileController extends Controller
 
     public function create()
     {
+        $user = Auth::user();
+        $profileCount = Profile::where('user_id', $user->id)->count();
+        
+        if ($profileCount >= 4) {
+            return redirect()->route('profile.manage', ['id' => $user->id])
+                ->with('error', 'You have reached the maximum limit of 4 profiles per account.');
+        }
+        
         return view('profile.create');
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
+        $profileCount = Profile::where('user_id', $user->id)->count();
+        
+        if ($profileCount >= 4) {
+            return redirect()->route('profile.manage', ['id' => $user->id])
+                ->with('error', 'You have reached the maximum limit of 4 profiles per account.');
+        }
+        
         $profile = new Profile();
         $profile->name = $request->name;
         $profile->description = $request->description;
