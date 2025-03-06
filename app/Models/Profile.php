@@ -17,7 +17,7 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function find($id)
+    public static function find($id)
     {
         return Profile::where('id', $id)->first();
     }

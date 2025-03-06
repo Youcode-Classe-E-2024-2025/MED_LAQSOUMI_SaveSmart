@@ -91,6 +91,6 @@ class ProfileController extends Controller
     {
         $profile = Profile::find($id);
         $profile->delete();
-        return redirect()->route('profile');
+        return redirect()->route('profile.manage', ['id' => $profile->id])->with('success', 'Profile deleted successfully');
     }
 }
