@@ -81,7 +81,19 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'pin' => 'required',
+            'avatar' => 'required'
+        ]);
+        $profile = Profile::find($id);
+        $profile->name = $request->name;
+        $profile->description = $request->description;
+        $profile->pin = $request->pin;
+        $profile->avatar = $request->avatar;
+        $profile->save();
+        return redirect()->route('profile.manage', ['id' => $profile->id])->with('success', 'Profile updated successfully');
     }
 
     /**

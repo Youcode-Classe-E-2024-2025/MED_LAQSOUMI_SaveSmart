@@ -288,8 +288,7 @@
         // Edit profile
         function editProfile(id, name, description, pin, avatar) {
             // Set form for editing
-            document.getElementById('profileForm').action = "/" + id;
-            document.getElementById('methodField').innerHTML = '<input type="hidden" name="_method" value="PUT">';
+            document.getElementById('methodField').innerHTML = '<input type="hidden" name="_method" value="POST">';
             document.getElementById('modalTitle').textContent = 'Edit Profile';
             document.getElementById('submitBtn').textContent = 'Save Changes';
             
