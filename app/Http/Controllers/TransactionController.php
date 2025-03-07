@@ -51,4 +51,29 @@ class TransactionController extends Controller
         $transaction->delete();
         return response()->json(null, 204);
     }
+
+    public function recentlyTransactions()
+    {
+        $transactions = Transaction::with('category')->latest()->limit(5)->get();
+        return response()->json($transactions);
+    }
+
+
+    public function monthlyTransactions()
+    {
+        $transactions = Transaction::with('category')
+            ->whereMonth('created_at', now()->month)
+            ->get();
+        return response()->json($transactions);
+    }
+
+    public function halfYearlyTransactions()
+    {
+        $transactions = Transaction::with('category')
+            ->whereBetween('created_at', [now()->subMonths(6), now()])
+            ->get();
+        return response()->json($transactions);
+    }
+
+    
 }

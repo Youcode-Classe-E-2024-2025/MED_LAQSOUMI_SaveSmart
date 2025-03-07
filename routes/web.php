@@ -29,3 +29,4 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 // Category routes
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
 Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::post('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');

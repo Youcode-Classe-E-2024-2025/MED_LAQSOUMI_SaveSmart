@@ -20,7 +20,8 @@ class DashboardController extends Controller
         $selectedProfile = Profile::findOrFail($profiles[0]->id);
         $categories = Category::select('name', 'color')->distinct()->get();
         $transactions = Transaction::with('category')->get();
+        $recentTransactions = Transaction::with('category')->latest()->limit(5)->get();
         
-        return view('dashboard.index', compact('profiles', 'selectedProfile', 'categories', 'transactions'));
+        return view('dashboard.index', compact('profiles', 'selectedProfile', 'categories', 'transactions', 'recentTransactions'));
     }
 }

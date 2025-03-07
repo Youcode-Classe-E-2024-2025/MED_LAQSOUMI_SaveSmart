@@ -13,6 +13,9 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
+            'title' => $this->faker->sentence,
+            'date' => $this->faker->date,
+            'user_id' => 1,
             'category_id' => Category::factory(),
             'amount' => $this->faker->randomFloat(2, 1, 1000),
             'type' => $this->faker->randomElement(['income', 'expense']),

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,52 +13,73 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
+
         .animate-gradient {
             background-size: 200% 200%;
             animation: gradient 15s ease infinite;
         }
+
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
+
         .sidebar {
             height: calc(100vh - 80px);
         }
+
         .sidebar-item {
             transition: all 0.3s ease;
         }
+
         .sidebar-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
+
         .sidebar-item.active {
             border-left: 4px solid #FBBF24;
             background-color: rgba(251, 191, 36, 0.1);
         }
+
         .card {
             backdrop-filter: blur(12px);
             background-color: rgba(31, 41, 55, 0.5);
             border: 1px solid rgba(75, 85, 99, 0.3);
         }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: rgba(31, 41, 55, 0.3);
             border-radius: 10px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(251, 191, 36, 0.5);
             border-radius: 10px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(251, 191, 36, 0.7);
         }
+
         .modal {
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
     </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-gradient text-white min-h-screen">
     <div class="backdrop-blur-sm bg-black/30 min-h-screen">
         <!-- Header -->
@@ -65,14 +87,16 @@
             <div class="container mx-auto px-4 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                     <i class="fas fa-wallet text-yellow-400 text-2xl"></i>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    <h1
+                        class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                         SaveSmart
                     </h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
+                            <div
+                                class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
                                 @php
                                     $nameParts = explode(' ', trim($selectedProfile->name));
                                     $firstInitial = isset($nameParts[0]) ? strtoupper($nameParts[0][0]) : '';
@@ -82,21 +106,25 @@
                             </div>
                             <i class="fas fa-chevron-down text-xs text-gray-400"></i>
                         </button>
-                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
+                        <div id="userMenu"
+                            class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
                             <div class="p-3 border-b border-gray-700">
                                 <p class="font-semibold">{{ $selectedProfile->name }}</p>
                             </div>
                             <div>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
                                     <i class="fas fa-user-cog mr-2 text-yellow-400"></i> Account Settings
                                 </a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
+                                <a href="#"
+                                    class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
                                     <i class="fas fa-users mr-2 text-yellow-400"></i> Family Members
                                 </a>
                                 <form action="{{ route('logout.user') }}" method="POST">
                                     @csrf
                                     @method('POST')
-                                    <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
+                                    <button type="submit"
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
                                         <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                     </button>
                                 </form>
@@ -121,23 +149,28 @@
                 </div>
                 <nav id="sidebarNav" class="flex-1 overflow-y-auto custom-scrollbar">
                     <div class="py-2">
-                        <a href="#overview" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#overview"
+                            class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-home w-6 text-yellow-400"></i>
                             <span>Overview</span>
                         </a>
-                        <a href="#transactions" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#transactions"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-exchange-alt w-6 text-yellow-400"></i>
                             <span>Transactions</span>
                         </a>
-                        <a href="#budget" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#budget"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-chart-pie w-6 text-yellow-400"></i>
                             <span>Budget</span>
                         </a>
-                        <a href="#goals" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#goals"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-bullseye w-6 text-yellow-400"></i>
                             <span>Goals</span>
                         </a>
-                        <a href="#reports" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#reports"
+                            class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-chart-line w-6 text-yellow-400"></i>
                             <span>Reports</span>
                         </a>
@@ -145,10 +178,10 @@
                     <div class="py-2 border-t border-gray-700">
                         <div class="px-4 py-2">
                             <p class="text-xs text-gray-500 mb-2">Family Members</p>
-                            @foreach($profiles as $member)
-                                <div class="flex items
-                                -center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs">
+                            @foreach ($profiles as $member)
+                                <div class="flex items-center space-x-2">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs">
                                         {{ substr($member->name, 0, 1) }}
                                     </div>
                                     <span class="text-sm">{{ $member->name }}</span>
@@ -158,19 +191,37 @@
                     </div>
                     <div class="py-2 border-t border-gray-700">
                         <p class="px-4 py-2 text-xs text-gray-500 uppercase font-semibold tracking-wider">Categories</p>
-                        <div class="space-y-1 px-2">
-                            @foreach($categories as $category)
-                                <a href="#" class="sidebar-item group flex items-center px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200">
-                                    <div class="w-5 h-5 mr-3 rounded flex items-center justify-center relative">
-                                        <span class="absolute inset-0 rounded-full" style="background-color: {{ $category->color ?? '#6B7280' }};"></span>
-                                        <i class="fas fa-circle text-xs relative z-10" style="color: {{ $category->color ?? '#6B7280' }}; filter: brightness(1.2);"></i>
+                        <div class="max-h-60 overflow-y-auto custom-scrollbar px-2">
+                            @foreach ($categories as $category)
+                                <div id="category-{{ $category->id }}"
+                                    class="group flex items-center justify-between px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200 mb-1">
+                                    <a href="#" class="sidebar-item flex items-center flex-1">
+                                        <div class="w-5 h-5 mr-3 rounded flex items-center justify-center relative">
+                                            <span class="absolute inset-0 rounded-full"
+                                                style="background-color: {{ $category->color}};"></span>
+                                            <i class="fas fa-circle text-xs relative z-10"
+                                                style="color: {{ $category->color}}; filter: brightness(1.2);"></i>
+                                        </div>
+                                        <span
+                                            class="text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-200">{{ $category->name}}</span>
+                                    </a>
+                                    <div
+                                        class="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                        <button onclick="editCategory({{ $category->id }})"
+                                            class="p-1 hover:text-yellow-400 transition-colors duration-200">
+                                            <i class="fas fa-edit text-xs"></i>
+                                        </button>
+                                        <button onclick="deleteCategory({{ $category->id }})"
+                                            class="p-1 hover:text-red-400 transition-colors duration-200 cursor-pointer">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </button>
                                     </div>
-                                    <span class="text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-200">{{ $category->name ?? 'Unnamed Category' }}</span>
-                                </a>
+                                </div>
                             @endforeach
                         </div>
                         <div class="px-4 py-3">
-                            <button onclick="openModal('addCategoryModal')" class="w-full text-sm flex items-center justify-center px-3 py-1.5 rounded-lg border border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10 hover:border-yellow-500/50 transition-all duration-200">
+                            <button onclick="openModal('addCategoryModal')"
+                                class="w-full text-sm flex items-center justify-center px-3 py-1.5 rounded-lg border border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10 hover:border-yellow-500/50 transition-all duration-200">
                                 <i class="fas fa-plus-circle mr-2"></i> Add Category
                             </button>
                         </div>
@@ -182,10 +233,11 @@
             <main class="flex-1 space-y-6">
                 <!-- Overview Section -->
                 <section id="overview">
-                    <h2 class="text-xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    <h2
+                        class="text-xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                         Overview
                     </h2>
-                    
+
                     <!-- Balance Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                         <div class="card rounded-xl p-4">
@@ -213,7 +265,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Charts and Tables -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <!-- Expenses by Category -->
@@ -221,7 +273,8 @@
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="font-semibold">Expenses by Category</h3>
                                 <div class="relative">
-                                    <select class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                                    <select
+                                        class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
                                         <option>This Month</option>
                                         <option>Last Month</option>
                                         <option>Last 3 Months</option>
@@ -260,13 +313,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Monthly Income & Expenses -->
                         <div class="card rounded-xl p-4">
                             <div class="flex justify-between items-center mb-4">
                                 <h3 class="font-semibold">Monthly Income & Expenses</h3>
                                 <div class="relative">
-                                    <select class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                                    <select
+                                        class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
                                         <option>Last 6 Months</option>
                                         <option>Last Year</option>
                                     </select>
@@ -275,121 +329,77 @@
                             <canvas id="monthlyChart" height="200"></canvas>
                         </div>
                     </div>
-                    
+
                     <!-- Recent Transactions -->
                     <div class="card rounded-xl p-4 mt-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="font-semibold">Recent Transactions</h3>
-                            <button onclick="openModal('addTransactionModal')" class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
+                            <button onclick="openModal('addTransactionModal')"
+                                class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
                                 <i class="fas fa-plus mr-1"></i> Add Transaction
                             </button>
                         </div>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-700">
-                                <thead>
-                                    <tr>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Description</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Amount</th>
-                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Member</th>
-                                        <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-700">
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Grocery Shopping</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-400">Food</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 22, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€89.75</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
-                                                    JS
-                                                </div>
-                                                <span class="text-sm">John</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Monthly Salary</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-400">Income</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 20, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-green-400">+€2,850.00</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
-                                                    JS
-                                                </div>
-                                                <span class="text-sm">John</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Electricity Bill</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-500/20 text-purple-400">Utilities</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 19, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€75.32</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs mr-2">
-                                                    ES
-                                                </div>
-                                                <span class="text-sm">Emma</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Restaurant Dinner</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-red-500/20 text-red-400">Entertainment</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 18, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€62.50</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs mr-2">
-                                                    ES
-                                                </div>
-                                                <span class="text-sm">Emma</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="space-y-4">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-700">
+                                    <thead>
+                                        <tr>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Description</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Amount</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Member</th>
+                                            <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-700">
+                                        @foreach ($transactions as $transaction)
+                                            <tr>
+                                                <td class="px-4 py-3 whitespace-nowrap">{{ $transaction->description }}</td>
+                                                <td class="px-4 py-3 whitespace-nowrap">
+                                                    <span class="px-2 py-1 text-xs rounded-full" style="color: {{ $transaction->category->color }};">{{ $transaction->category->name }}</span>
+                                                </td>
+                                                <td class="px-4 py-3 whitespace-nowrap text-gray-300">{{ $transaction->created_at->format('M d, Y') }}</td>
+                                                <td class="px-4 py-3 whitespace-nowrap {{ $transaction->type == 'income' ? 'text-green-400' : 'text-red-400' }}">{{ $transaction->amount < 0 ? '-' : '+' }}€{{ abs($transaction->amount) }}</td>
+                                                <td class="px-4 py-3 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
+                                                            @foreach ($profiles as $profile)
+                                                                @php
+                                                                    $nameParts = explode(' ', trim($profile->name));
+                                                                    $initials = isset($nameParts[0]) ? strtoupper($nameParts[0][0]) : '';
+                                                                @endphp
+                                                                @if ($profile->id === $transaction->profile_id)
+                                                                    {{ strtoupper($initials) }}
+                                                                @endif
+                                                            @endforeach
+                                                            {{ strtoupper($initials) }}
+                                                        </div>
+                                                        <span class="text-sm">{{ $profile->name }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
+                                                    <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
+                                                    <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="#transactions" class="text-sm text-yellow-400 hover:text-yellow-300">View All Transactions</a>
+                            <a href="#transactions" class="text-sm text-yellow-400 hover:text-yellow-300">View All
+                                Transactions</a>
                         </div>
                     </div>
-                    
+
                     <!-- Financial Goals -->
                     <div class="card rounded-xl p-4 mt-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="font-semibold">Financial Goals</h3>
-                            <button onclick="openModal('addGoalModal')" class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
+                            <button onclick="openModal('addGoalModal')"
+                                class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
                                 <i class="fas fa-plus mr-1"></i> Add Goal
                             </button>
                         </div>
@@ -447,7 +457,8 @@
                 <p>&copy; 2025 SaveSmart. All rights reserved.</p>
                 <div class="mt-4 space-x-4">
                     <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Terms of
+                        Service</a>
                     <a href="#" class="hover:text-yellow-400 transition-colors duration-300">Help Center</a>
                 </div>
             </div>
@@ -456,10 +467,13 @@
 
     <!-- Modals -->
     <!-- Add Transaction Modal -->
-    <div id="addTransactionModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
+    <div id="addTransactionModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
         <div class="card rounded-xl w-full max-w-md p-6 m-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">Add Transaction</h3>
+                <h3
+                    class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    Add Transaction</h3>
                 <button onclick="closeModal('addTransactionModal')" class="text-gray-400 hover:text-white">
                     <i class="fas fa-times"></i>
                 </button>
@@ -470,7 +484,8 @@
                         <label class="block mb-1 text-sm">Transaction Type</label>
                         <div class="flex space-x-4">
                             <label class="flex items-center">
-                                <input type="radio" name="type" value="expense" class="mr-2 text-yellow-400" checked>
+                                <input type="radio" name="type" value="expense" class="mr-2 text-yellow-400"
+                                    checked>
                                 <span>Expense</span>
                             </label>
                             <label class="flex items-center">
@@ -481,18 +496,23 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Description</label>
-                        <input type="text" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" placeholder="Enter description">
+                        <input type="text"
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                            placeholder="Enter description">
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Amount</label>
                         <div class="relative">
                             <span class="absolute left-3 top-2">€</span>
-                            <input type="number" step="0.01" class="w-full bg-gray-700 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" placeholder="0.00">
+                            <input type="number" step="0.01"
+                                class="w-full bg-gray-700 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                                placeholder="0.00">
                         </div>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Category</label>
-                        <select class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                        <select
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
                             <option>Housing</option>
                             <option>Food</option>
                             <option>Transportation</option>
@@ -503,11 +523,13 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Date</label>
-                        <input type="date" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                        <input type="date"
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Family Member</label>
-                        <select class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                        <select
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
                             <option>John Smith</option>
                             <option>Emma Smith</option>
                             <option>Liam Smith</option>
@@ -515,14 +537,17 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Notes (Optional)</label>
-                        <textarea class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" rows="3" placeholder="Add any additional notes"></textarea>
+                        <textarea class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                            rows="3" placeholder="Add any additional notes"></textarea>
                     </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                    <button type="button" onclick="closeModal('addTransactionModal')" class="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors duration-300">
+                    <button type="button" onclick="closeModal('addTransactionModal')"
+                        class="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors duration-300">
                         Cancel
                     </button>
-                    <button type="submit" class="px-4 py-2 text-sm bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-300">
+                    <button type="submit"
+                        class="px-4 py-2 text-sm bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-300">
                         Add Transaction
                     </button>
                 </div>
@@ -530,164 +555,169 @@
         </div>
     </div>
 
-<!-- Add Category Modal -->
-<div id="addCategoryModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
-    <div class="card rounded-xl w-full max-w-md p-6 m-4">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
-                Add Category
-            </h3>
-            <button onclick="closeModal('addCategoryModal')" class="text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <form action="{{ route('category.store') }}" method="POST" class="space-y-4">
-            @csrf
-            <div>
-                <label class="block mb-1 text-sm">Category Name</label>
-                <input type="text" name="name" required class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+    <!-- Add Category Modal -->
+    <div id="addCategoryModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
+        <div class="card rounded-xl w-full max-w-md p-6 m-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3
+                    class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    Add Category
+                </h3>
+                <button onclick="closeModal('addCategoryModal')" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div>
-                <label class="block mb-1 text-sm">Category Description</label>
-                <input type="text" name="description" required class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-            <div>
-                <label class="block mb-1 text-sm">Category Color</label>
-                <div class="flex items-center space-x-3">
-                    <input type="color" name="color" value="#FBBF24" required 
-                        class="h-10 w-10 cursor-pointer rounded-lg border-2 border-gray-600 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+            <form action="{{ route('category.store') }}" method="POST" class="space-y-4">
+                @csrf
+                <div>
+                    <label class="block mb-1 text-sm">Category Name</label>
+                    <input type="text" name="name" required
+                        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
                 </div>
-            </div>
-            <button type="submit" 
-                class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600">
-                Add Category
-            </button>
-        </form>
+                <div>
+                    <label class="block mb-1 text-sm">Category Description</label>
+                    <input type="text" name="description" required
+                        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <div>
+                        <label class="block mb-1 text-sm">Category Color</label>
+                        <div class="flex items-center space-x-3">
+                            <input type="color" name="color" value="#FBBF24" required
+                                class="h-10 w-10 cursor-pointer rounded-lg border-2 border-gray-600 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600">
+                        Add Category
+                    </button>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- Add this script section at the bottom of your file -->
-<script>
-// Chart.js Initialization
-window.addEventListener('load', function() {
-    // Expenses Pie Chart
-    const expensesPieChart = new Chart(document.getElementById('expensesPieChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Housing', 'Food', 'Transportation', 'Entertainment', 'Utilities', 'Others'],
-            datasets: [{
-                data: [35, 25, 15, 10, 8, 7],
-                backgroundColor: [
-                    'rgba(59, 130, 246, 0.8)',
-                    'rgba(251, 191, 36, 0.8)',
-                    'rgba(34, 197, 94, 0.8)',
-                    'rgba(239, 68, 68, 0.8)',
-                    'rgba(168, 85, 247, 0.8)',
-                    'rgba(156, 163, 175, 0.8)'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            cutout: '70%',
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // Monthly Income & Expenses Chart
-    const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
-        type: 'bar',
-        data: {
-            labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
-            datasets: [{
-                label: 'Income',
-                data: [2500, 2700, 2600, 3000, 2800, 2850],
-                backgroundColor: 'rgba(34, 197, 94, 0.5)',
-                borderColor: 'rgba(34, 197, 94, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Expenses',
-                data: [1800, 1900, 1750, 2100, 1650, 1756],
-                backgroundColor: 'rgba(239, 68, 68, 0.5)',
-                borderColor: 'rgba(239, 68, 68, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
-                    },
-                    ticks: {
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    }
+    <!-- Add this script section at the bottom of your file -->
+    <script>
+        // Chart.js Initialization
+        window.addEventListener('load', function() {
+            // Expenses Pie Chart
+            const expensesPieChart = new Chart(document.getElementById('expensesPieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Housing', 'Food', 'Transportation', 'Entertainment', 'Utilities', 'Others'],
+                    datasets: [{
+                        data: [35, 25, 15, 10, 8, 7],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(251, 191, 36, 0.8)',
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(239, 68, 68, 0.8)',
+                            'rgba(168, 85, 247, 0.8)',
+                            'rgba(156, 163, 175, 0.8)'
+                        ]
+                    }]
                 },
-                x: {
-                    grid: {
-                        display: false
+                options: {
+                    responsive: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Monthly Income & Expenses Chart
+            const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+                    datasets: [{
+                        label: 'Income',
+                        data: [2500, 2700, 2600, 3000, 2800, 2850],
+                        backgroundColor: 'rgba(34, 197, 94, 0.5)',
+                        borderColor: 'rgba(34, 197, 94, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Expenses',
+                        data: [1800, 1900, 1750, 2100, 1650, 1756],
+                        backgroundColor: 'rgba(239, 68, 68, 0.5)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
                     },
-                    ticks: {
-                        color: 'rgba(255, 255, 255, 0.7)'
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            }
+                        }
                     }
                 }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: 'rgba(255, 255, 255, 0.7)'
-                    }
-                }
-            }
+            });
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
         }
-    });
-});
 
-// Modal Functions
-function openModal(modalId) {
-    document.getElementById(modalId).classList.remove('hidden');
-}
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
 
-function closeModal(modalId) {
-    document.getElementById(modalId).classList.add('hidden');
-}
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.add('hidden');
+            }
+        });
 
-// Close modal when clicking outside
-window.addEventListener('click', function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.classList.add('hidden');
-    }
-});
+        // Form Submission Handlers
+        document.getElementById('addFamilyMemberForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your family member submission logic here
+            closeModal('addFamilyMemberModal');
+        });
 
-// Form Submission Handlers
-document.getElementById('addFamilyMemberForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Add your family member submission logic here
-    closeModal('addFamilyMemberModal');
-});
+        document.getElementById('addCategoryForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your category submission logic here
+            closeModal('addCategoryModal');
+        });
 
-document.getElementById('addCategoryForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Add your category submission logic here
-    closeModal('addCategoryModal');
-});
+        // User Menu Toggle
+        document.getElementById('userMenuBtn').addEventListener('click', function() {
+            document.getElementById('userMenu').classList.toggle('hidden');
+        });
 
-// User Menu Toggle
-document.getElementById('userMenuBtn').addEventListener('click', function() {
-    document.getElementById('userMenu').classList.toggle('hidden');
-});
-
-// Close user menu when clicking outside
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('#userMenuBtn')) {
-        document.getElementById('userMenu').classList.add('hidden');
-    }
-});
-</script>
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#userMenuBtn')) {
+                document.getElementById('userMenu').classList.add('hidden');
+            }
+        });
+    </script>
 </body>
+
 </html>

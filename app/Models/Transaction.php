@@ -10,7 +10,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'amount', 'type', 'description'];
+    protected $fillable = ['category_id', 'amount', 'type', 'description', 'date', 'title', 'user_id'];
 
     public function category(): BelongsTo
     {

@@ -12,12 +12,15 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('title');
+            $table->date('date');
             $table->decimal('amount', 10, 2);
-            $table->enum('type', ['income', 'expense']); 
+            $table->enum('type', ['income', 'expense']);
             $table->text('description')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

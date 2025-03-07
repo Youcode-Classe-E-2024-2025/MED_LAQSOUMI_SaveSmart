@@ -31,8 +31,9 @@ class CategoryController extends Controller
         return redirect()->route('dashboard')->with('success', 'Category created successfully');
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
+        $category = Category::find($id);
         $category->delete();
         return redirect()->route('dashboard')->with('success', 'Category deleted successfully');
     }
