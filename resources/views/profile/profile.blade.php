@@ -56,7 +56,7 @@
                 <!-- Profile Cards -->
                 @foreach($profiles as $profile)
                     <div class="flex flex-col items-center gap-4 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 w-[150px]"
-                         onclick="window.location.href='{{ route('dashboard', ['id' => $profile->id]) }}'">
+                         onclick="window.location.href='{{ route('dashboard') }}'">
                         <div class="w-[120px] h-[120px] rounded-xl flex items-center justify-center text-4xl font-bold text-gray-900 border-4 border-white/20 transition-all duration-300 ease-in-out overflow-hidden relative hover:border-amber-400 hover:shadow-[0_0_20px_rgba(251,191,36,0.5)]"
                              style="background-image: linear-gradient(to bottom right,
                                 @if($profile->avatar == 'avatar-green') #22c55e, #16a34a

@@ -541,28 +541,21 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <form id="addCategoryForm" class="space-y-4">
+        <form action="{{ route('category.store') }}" method="POST" class="space-y-4">
+            @csrf
             <div>
                 <label class="block mb-1 text-sm">Category Name</label>
-                <input type="text" name="name" required
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                <input type="text" name="name" required class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
             </div>
             <div>
-                <label class="block mb-1 text-sm">Icon</label>
-                <select name="icon" required
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                    <option value="home">🏠 Housing</option>
-                    <option value="food">🍽️ Food</option>
-                    <option value="transport">🚗 Transport</option>
-                    <option value="entertainment">🎮 Entertainment</option>
-                    <option value="utilities">💡 Utilities</option>
-                    <option value="custom">➕ Custom</option>
-                </select>
-            </div>
+                <label class="block mb-1 text-sm">Category Description</label>
+                <input type="text" name="description" required class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
             <div>
-                <label class="block mb-1 text-sm">Budget Limit (Optional)</label>
-                <input type="number" name="budgetLimit"
-                    class="w-full p-3 rounded-lg bg-gray-700/50 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                <label class="block mb-1 text-sm">Category Color</label>
+                <div class="flex items-center space-x-3">
+                    <input type="color" name="color" value="#FBBF24" required 
+                        class="h-10 w-10 cursor-pointer rounded-lg border-2 border-gray-600 bg-transparent p-0 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                </div>
             </div>
             <button type="submit" 
                 class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600">

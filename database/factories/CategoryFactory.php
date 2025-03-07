@@ -12,12 +12,16 @@ class CategoryFactory extends Factory
     public function definition()
     {
         $categories = [
-            ['name' => 'Housing', 'color' => 'rgba(59, 130, 246, 0.8)'],
-            ['name' => 'Food', 'color' => 'rgba(251, 191, 36, 0.8)'],
-            ['name' => 'Transportation', 'color' => 'rgba(34, 197, 94, 0.8)'],
-            ['name' => 'Entertainment', 'color' => 'rgba(239, 68, 68, 0.8)'],
-            ['name' => 'Utilities', 'color' => 'rgba(168, 85, 247, 0.8)'],
-            ['name' => 'Others', 'color' => 'rgba(156, 163, 175, 0.8)'],
+            ['name' => 'Housing', 'color' => '#3B82F6CC'],
+            ['name' => 'Food', 'color' => '#FBBF24CC'],
+            ['name' => 'Transportation', 'color' => '#22C55ECC'],
+            ['name' => 'Entertainment', 'color' => '#EF4444CC'],
+            ['name' => 'Utilities', 'color' => '#A855F7CC'],
+            ['name' => 'Health', 'color' => '#34D399CC'],
+            ['name' => 'Education', 'color' => '#F59E0BCC'],
+            ['name' => 'Insurance', 'color' => '#6366F1CC'],
+            ['name' => 'Personal', 'color' => '#D97706CC'],
+            ['name' => 'Others', 'color' => '#9CA3AFCC'],
         ];
 
         $category = $this->faker->randomElement($categories);

@@ -16,48 +16,24 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $request = $request->validate([
             'name' => 'required|string|unique:categories',
             'description' => 'nullable|string',
             'color' => 'nullable|string',
         ]);
-
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
-            'color' => $request->color ?? 'gray', // Default color if not provided
+        
+        $categories = Category::create([
+            'name' => $request['name'],
+            'description' => $request['description'],
+            'color' => $request['color'], // Default color if not provided
         ]);
-
-        return response()->json($category, 201);
-    }
-
-    public function show(Category $category)
-    {
-        return response()->json($category);
-    }
-
-    public function update(Request $request, Category $category)
-    {
-        $request->validate([
-            'name' => 'required|string|unique:categories,name,' . $category->id,
-            'description' => 'nullable|string',
-            'color' => 'nullable|string',
-        ]);
-
-        $category->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'description' => $request->description,
-            'color' => $request->color ?? 'gray', // Default color if not provided
-        ]);
-
-        return response()->json($category);
+        $categories->save();
+        return redirect()->route('dashboard')->with('success', 'Category created successfully');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return response()->json(null, 204);
+        return redirect()->route('dashboard')->with('success', 'Category deleted successfully');
     }
 }

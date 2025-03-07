@@ -23,8 +23,9 @@ Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name(
 Route::post('/profile/delete/{id}', [ProfileController::class, 'destroy'])->name('profile.delete');
 
 // Dashboard routes
-Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 
 // Category routes
 Route::get('/category', [CategoryController::class, 'index'])->name('category');
+Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
