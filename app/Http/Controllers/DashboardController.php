@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Profile;
+use App\Models\Transaction;
 use Illuminate\Http\Request;;
 
 class DashboardController extends Controller
@@ -17,8 +18,9 @@ class DashboardController extends Controller
         
         $profiles = Profile::where('user_id', $users->id)->get();
         $selectedProfile = Profile::findOrFail($id);
-        $categories = Category::all();
+        $categories = Category::select('name', 'color')->distinct()->get();
+        $transactions = Transaction::with('category')->get();
         
-        return view('dashboard.index', compact('profiles', 'selectedProfile', 'categories'));
+        return view('dashboard.index', compact('profiles', 'selectedProfile', 'categories', 'transactions'));
     }
 }
