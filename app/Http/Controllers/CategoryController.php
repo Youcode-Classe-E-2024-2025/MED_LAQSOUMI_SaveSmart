@@ -37,4 +37,28 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('dashboard')->with('success', 'Category deleted successfully');
     }
+
+
+    public function show($id)
+    {
+        $category = Category::find($id);
+        return response()->json($category);
+    }
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|unique:categories,name,' . $id,
+        'description' => 'nullable|string',
+        'color' => 'nullable|string',
+    ]);
+    
+    $category = Category::find($id);
+    $category->name = $request->input('name');
+    $category->description = $request->input('description');
+    $category->color = $request->input('color');
+    $category->save();
+    
+    return redirect()->route('dashboard')->with('success', 'Category updated successfully');
+}
 }

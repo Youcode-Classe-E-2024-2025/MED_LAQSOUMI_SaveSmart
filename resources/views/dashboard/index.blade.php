@@ -583,6 +583,51 @@
         </div>
     </div>
 
+</div>
+
+    <!-- Edit Category Modal -->
+    <div id="editCategoryModal" 
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
+        <div class="card rounded-xl w-full max-w-md p-6 m-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    Edit Category
+                </h3>
+                <button onclick="closeModal('editCategoryModal')" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editCategoryForm" class="space-y-4">
+                @csrf
+                <input type="hidden" id="editCategoryId" name="id">
+                <div>
+                    <label class="block mb-1 text-sm">Category Name</label>
+                    <input type="text" id="editCategoryName" name="name" required
+                        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                </div>
+                <div>
+                    <label class="block mb-1 text-sm">Category Description</label>
+                    <input type="text" id="editCategoryDescription" name="description" required
+                        class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                </div>
+                <div>
+                    <label class="block mb-1 text-sm">Category Color</label>
+                    <div class="flex items-center space-x-3">
+                        <input type="color" id="editCategoryColor" name="color" required
+                            class="h-10 w-10 cursor-pointer rounded-lg border-2 border-gray-600 p-0 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        <div id="colorPreview" class="h-10 w-10 rounded-lg border-2 border-gray-600"></div>
+                        <span id="colorHexValue" class="text-sm text-gray-300">#FFFFFF</span>
+                    </div>
+                </div>
+                <button type="submit" 
+                    class="w-full py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-semibold rounded-lg hover:from-yellow-500 hover:to-yellow-600">
+                    Update Category
+                </button>
+            </form>
+        </div>
+    </div>
+
+
     <!-- Add this script section at the bottom of your file -->
     <script>
         // Chart.js Initialization
@@ -614,8 +659,7 @@
                     }
                 }
             });
-
-            // Monthly Income & Expenses Chart
+            
             const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
                 type: 'bar',
                 data: {
@@ -668,8 +712,70 @@
 
 
         function editCategory(categoryId) {
-            // Add your edit category logic here
+            if (confirm('Are you sure you want to edit this category?')) {
+                fetch("{{ route('category.show', ['id' => 'CATEGORY_ID']) }}".replace('CATEGORY_ID', categoryId), {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Failed to fetch category data');
+                })
+                .then(data => {
+                    document.getElementById('editCategoryModal').classList.remove('hidden');
+                    document.getElementById('editCategoryId').value = data.id;
+                    document.getElementById('editCategoryName').value = data.name;
+                    document.getElementById('editCategoryDescription').value = data.description;
+                    document.getElementById('editCategoryColor').value = data.color;
+                    
+                    // Update the color preview
+                    document.getElementById('colorPreview').style.backgroundColor = data.color;
+                    document.getElementById('colorHexValue').textContent = data.color.toUpperCase();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
         }
+
+        // Add this to your script section
+        document.getElementById('editCategoryColor')?.addEventListener('input', function(e) {
+            const color = e.target.value;
+            document.getElementById('colorPreview').style.backgroundColor = color;
+            document.getElementById('colorHexValue').textContent = color.toUpperCase();
+        });
+
+        // Add this to your script section
+        document.getElementById('editCategoryForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const categoryId = document.getElementById('editCategoryId').value;
+            const formData = new FormData(this);
+            
+            fetch("{{ route('category.update', ['id' => 'CATEGORY_ID']) }}".replace('CATEGORY_ID', categoryId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Failed to update category.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
 
         function deleteCategory(categoryId) {
             if (confirm('Are you sure you want to delete this category?')) {
