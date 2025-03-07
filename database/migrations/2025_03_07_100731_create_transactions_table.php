@@ -6,16 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+   
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->decimal('amount', 10, 2);
-            $table->enum('type', ['income', 'expense']); // Example: Income or Expense
+            $table->enum('type', ['income', 'expense']); 
             $table->text('description')->nullable();
             $table->timestamps();
 
@@ -23,9 +21,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('transactions');
