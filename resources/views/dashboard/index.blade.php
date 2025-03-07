@@ -143,11 +143,6 @@
                         </a>
                     </div>
                     <div class="py-2 border-t border-gray-700">
-                        <p class="px-4 py-2 text-xs text-gray-500 uppercase">Family</p>
-                        <a href="#manage-family" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
-                            <i class="fas fa-users w-6 text-yellow-400"></i>
-                            <span>Manage Members</span>
-                        </a>
                         <div class="px-4 py-2">
                             <p class="text-xs text-gray-500 mb-2">Family Members</p>
                             @foreach($profiles as $member)
@@ -159,9 +154,6 @@
                                     <span class="text-sm">{{ $member->name }}</span>
                                 </div>
                             @endforeach
-                            <button onclick="openModal('addFamilyMemberModal')" class="mt-3 text-xs flex items-center text-yellow-400 hover:text-yellow-300">
-                                <i class="fas fa-plus-circle mr-1"></i> Add Member
-                            </button>
                         </div>
                     </div>
                     <div class="py-2 border-t border-gray-700">
