@@ -349,7 +349,7 @@
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Amount</th>
                                             <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Member</th>
-                                            <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                            <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-700">
@@ -666,6 +666,35 @@
             });
         });
 
+
+        function editCategory(categoryId) {
+            // Add your edit category logic here
+        }
+
+        function deleteCategory(categoryId) {
+            if (confirm('Are you sure you want to delete this category?')) {
+                fetch("{{ route('category.delete', ['id' => 'CATEGORY_ID']) }}".replace('CATEGORY_ID', categoryId), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Failed to delete category.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            }
+        }
+
+        
         // Modal Functions
         function openModal(modalId) {
             document.getElementById(modalId).classList.remove('hidden');
@@ -706,6 +735,9 @@
                 document.getElementById('userMenu').classList.add('hidden');
             }
         });
+
+
+        
     </script>
 </body>
 
