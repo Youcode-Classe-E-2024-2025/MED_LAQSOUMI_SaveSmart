@@ -142,11 +142,11 @@
                 </div>
                 <nav id="sidebarNav" class="flex-1 overflow-y-auto custom-scrollbar">
                     <div class="py-2">
-                        <a href="" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="{{ route('dashboard') }}" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-home w-6 text-yellow-400"></i>
                             <span>Dashboard</span>
                         </a>
-                        <a href="{{ route('transaction.index') }}" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="#" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-exchange-alt w-6 text-yellow-400"></i>
                             <span>Transactions</span>
                         </a>
@@ -220,7 +220,7 @@
                             </table>
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="#transactions" class="text-sm text-yellow-400 hover:text-yellow-300">View All Transactions</a>
+                            <a href="{{ route('transaction.index') }}" class="text-sm text-yellow-400 hover:text-yellow-300">View All Transactions</a>
                         </div>
                     </div>
                 </section>
