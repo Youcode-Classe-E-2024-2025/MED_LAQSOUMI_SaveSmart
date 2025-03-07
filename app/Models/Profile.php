@@ -31,8 +31,8 @@ class Profile extends Model
         return Profile::where('user_id', $id)->get();
     }
 
-    // public function transactions()
-    // {
-    //     return $this->hasMany(Transaction::class);
-    // }
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

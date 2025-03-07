@@ -14,6 +14,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('profile_id')->nullable();
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title');
             $table->date('date');

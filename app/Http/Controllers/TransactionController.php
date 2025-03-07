@@ -15,16 +15,15 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'amount' => 'required|numeric',
-            'type' => 'required|in:income,expense',
-            'description' => 'nullable|string',
-        ]);
-
-        $transaction = Transaction::create($request->all());
-
-        return response()->json($transaction, 201);
+        // Validate request
+        
+        $transaction = new Transaction();
+        $transaction->profile_id = $request->profile_id;
+        $transaction->user_id = auth()->user_id;
+        // Set other fields...
+        $transaction->save();
+        
+        // Return or redirect
     }
 
     public function show(Transaction $transaction)

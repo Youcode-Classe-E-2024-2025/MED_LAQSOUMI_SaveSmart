@@ -364,18 +364,9 @@
                                                 <td class="px-4 py-3 whitespace-nowrap">
                                                     <div class="flex items-center">
                                                         <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
-                                                            @foreach ($profiles as $profile)
-                                                                @php
-                                                                    $nameParts = explode(' ', trim($profile->name));
-                                                                    $initials = isset($nameParts[0]) ? strtoupper($nameParts[0][0]) : '';
-                                                                @endphp
-                                                                @if ($profile->id === $transaction->profile_id)
-                                                                    {{ strtoupper($initials) }}
-                                                                @endif
-                                                            @endforeach
-                                                            {{ strtoupper($initials) }}
+                                                            {{ $transaction->profile ? $transaction->profile->name[0] : ($transaction->user ? $transaction->user->name[0] : 'S') }}
                                                         </div>
-                                                        <span class="text-sm">{{ $profile->name }}</span>
+                                                        <span class="text-sm">{{ $transaction->profile ? $transaction->profile->name : ($transaction->user ? $transaction->user->name : 'System Transaction') }}</span>
                                                     </div>
                                                 </td>
                                                 <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
@@ -478,7 +469,8 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form>
+            <form action="" method="POST">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label class="block mb-1 text-sm">Transaction Type</label>
@@ -496,48 +488,45 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Description</label>
-                        <input type="text"
+                        <input type="text" name="description"
                             class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                            placeholder="Enter description">
+                            placeholder="Enter description" required>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Amount</label>
                         <div class="relative">
                             <span class="absolute left-3 top-2">€</span>
-                            <input type="number" step="0.01"
+                            <input type="number" name="amount" step="0.01"
                                 class="w-full bg-gray-700 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                                placeholder="0.00">
+                                placeholder="0.00" required>
                         </div>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Category</label>
-                        <select
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                            <option>Housing</option>
-                            <option>Food</option>
-                            <option>Transportation</option>
-                            <option>Entertainment</option>
-                            <option>Utilities</option>
-                            <option>Others</option>
+                        <select name="category_id"
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Date</label>
-                        <input type="date"
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
+                        <input type="date" name="date"
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Family Member</label>
-                        <select
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                            <option>John Smith</option>
-                            <option>Emma Smith</option>
-                            <option>Liam Smith</option>
+                        <select name="profile_id"
+                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
+                            @foreach ($profiles as $profile)
+                                <option value="{{ $profile->id }}">{{ $profile->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Notes (Optional)</label>
-                        <textarea class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                        <textarea name="notes" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
                             rows="3" placeholder="Add any additional notes"></textarea>
                     </div>
                 </div>
