@@ -1,63 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaveSmart Dashboard - Smart Financial Management</title>
+    <title>SaveSmart Transactions - Smart Financial Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
+
         .animate-gradient {
             background-size: 200% 200%;
             animation: gradient 15s ease infinite;
         }
+
         @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
+
         .sidebar {
             height: calc(100vh - 80px);
         }
+
         .sidebar-item {
             transition: all 0.3s ease;
         }
+
         .sidebar-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
+
         .sidebar-item.active {
             border-left: 4px solid #FBBF24;
             background-color: rgba(251, 191, 36, 0.1);
         }
+
         .card {
             backdrop-filter: blur(12px);
             background-color: rgba(31, 41, 55, 0.5);
             border: 1px solid rgba(75, 85, 99, 0.3);
         }
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: rgba(31, 41, 55, 0.3);
             border-radius: 10px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(251, 191, 36, 0.5);
             border-radius: 10px;
         }
+
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(251, 191, 36, 0.7);
         }
+
         .modal {
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
     </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 animate-gradient text-white min-h-screen">
     <div class="backdrop-blur-sm bg-black/30 min-h-screen">
         <!-- Header -->
@@ -70,22 +91,21 @@
                     </h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button id="notificationBtn" class="text-gray-300 hover:text-yellow-400 transition-colors duration-300 relative">
-                        <i class="fas fa-bell text-xl"></i>
-                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">3</span>
-                    </button>
                     <div class="relative group">
                         <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 flex items-center justify-center text-gray-900 font-semibold">
-                                JS
+                                @php
+                                    $nameParts = isset($selectedProfile) ? explode(' ', trim($selectedProfile->name)) : [''];
+                                    $firstInitial = isset($nameParts[0]) && $nameParts[0] !== '' ? strtoupper($nameParts[0][0]) : '';
+                                    $secondInitial = isset($nameParts[1]) && $nameParts[1] !== '' ? strtoupper($nameParts[1][0]) : '';
+                                @endphp
+                                {{ $firstInitial }} {{ $secondInitial }}
                             </div>
-                            <span class="hidden md:block">John Smith</span>
                             <i class="fas fa-chevron-down text-xs text-gray-400"></i>
                         </button>
                         <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg overflow-hidden hidden z-50 card">
                             <div class="p-3 border-b border-gray-700">
-                                <p class="font-semibold">John Smith</p>
-                                <p class="text-sm text-gray-400">john.smith@example.com</p>
+                                <p class="font-semibold">{{ $selectedProfile->name ?? 'Guest' }}</p>
                             </div>
                             <div>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
@@ -94,9 +114,13 @@
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200">
                                     <i class="fas fa-users mr-2 text-yellow-400"></i> Family Members
                                 </a>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
-                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                                </a>
+                                <form action="{{ route('logout.user') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-700 transition-colors duration-200 text-red-400">
+                                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -110,7 +134,7 @@
             <aside class="md:w-64 flex flex-col card rounded-xl overflow-hidden">
                 <div class="p-4 border-b border-gray-700">
                     <div class="flex items-center justify-between">
-                        <span class="font-semibold">Dashboard</span>
+                        <span class="font-semibold">Transactions</span>
                         <button id="mobileSidebarToggle" class="md:hidden text-gray-400 hover:text-white">
                             <i class="fas fa-bars"></i>
                         </button>
@@ -118,11 +142,11 @@
                 </div>
                 <nav id="sidebarNav" class="flex-1 overflow-y-auto custom-scrollbar">
                     <div class="py-2">
-                        <a href="#overview" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-home w-6 text-yellow-400"></i>
-                            <span>Overview</span>
+                            <span>Dashboard</span>
                         </a>
-                        <a href="#transactions" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
+                        <a href="{{ route('transaction.index') }}" class="sidebar-item active flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-exchange-alt w-6 text-yellow-400"></i>
                             <span>Transactions</span>
                         </a>
@@ -139,156 +163,20 @@
                             <span>Reports</span>
                         </a>
                     </div>
-                    <div class="py-2 border-t border-gray-700">
-                        <p class="px-4 py-2 text-xs text-gray-500 uppercase">Family</p>
-                        <a href="#manage-family" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
-                            <i class="fas fa-users w-6 text-yellow-400"></i>
-                            <span>Manage Members</span>
-                        </a>
-                        <div class="px-4 py-2">
-                            <p class="text-xs text-gray-500 mb-2">Family Members</p>
-                            <div class="space-y-2">
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs">
-                                        JS
-                                    </div>
-                                    <span class="text-sm">John Smith (You)</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs">
-                                        ES
-                                    </div>
-                                    <span class="text-sm">Emma Smith</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-xs">
-                                        LS
-                                    </div>
-                                    <span class="text-sm">Liam Smith</span>
-                                </div>
-                            </div>
-                            <button onclick="openModal('addFamilyMemberModal')" class="mt-3 text-xs flex items-center text-yellow-400 hover:text-yellow-300">
-                                <i class="fas fa-plus-circle mr-1"></i> Add Member
-                            </button>
-                        </div>
-                    </div>
-                    <div class="py-2 border-t border-gray-700">
-                        <p class="px-4 py-2 text-xs text-gray-500 uppercase">Categories</p>
-                        <a href="#manage-categories" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
-                            <i class="fas fa-tags w-6 text-yellow-400"></i>
-                            <span>Manage Categories</span>
-                        </a>
-                        <div class="px-4 py-2">
-                            <button onclick="openModal('addCategoryModal')" class="text-xs flex items-center text-yellow-400 hover:text-yellow-300">
-                                <i class="fas fa-plus-circle mr-1"></i> Add Category
-                            </button>
-                        </div>
-                    </div>
                 </nav>
             </aside>
 
-            <!-- Main Dashboard Content -->
+            <!-- Main Transactions Content -->
             <main class="flex-1 space-y-6">
-                <!-- Overview Section -->
-                <section id="overview">
+                <section id="transactions">
                     <h2 class="text-xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
-                        Overview
+                        Transactions
                     </h2>
-                    
-                    <!-- Balance Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                        <div class="card rounded-xl p-4">
-                            <p class="text-gray-400 text-sm">Total Balance</p>
-                            <p class="text-2xl font-bold">€3,548.92</p>
-                            <div class="flex items-center mt-2 text-green-400 text-sm">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                <span>+12% from last month</span>
-                            </div>
-                        </div>
-                        <div class="card rounded-xl p-4">
-                            <p class="text-gray-400 text-sm">Income (This Month)</p>
-                            <p class="text-2xl font-bold">€2,850.00</p>
-                            <div class="flex items-center mt-2 text-green-400 text-sm">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                <span>+5% from last month</span>
-                            </div>
-                        </div>
-                        <div class="card rounded-xl p-4">
-                            <p class="text-gray-400 text-sm">Expenses (This Month)</p>
-                            <p class="text-2xl font-bold">€1,756.32</p>
-                            <div class="flex items-center mt-2 text-red-400 text-sm">
-                                <i class="fas fa-arrow-up mr-1"></i>
-                                <span>+8% from last month</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Charts and Tables -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Expenses by Category -->
-                        <div class="card rounded-xl p-4">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-semibold">Expenses by Category</h3>
-                                <div class="relative">
-                                    <select class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                                        <option>This Month</option>
-                                        <option>Last Month</option>
-                                        <option>Last 3 Months</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="flex space-x-4">
-                                <div class="w-1/2">
-                                    <canvas id="expensesPieChart" height="200"></canvas>
-                                </div>
-                                <div class="w-1/2 space-y-3">
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
-                                        <span class="text-sm">Housing (35%)</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                                        <span class="text-sm">Food (25%)</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
-                                        <span class="text-sm">Transportation (15%)</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                                        <span class="text-sm">Entertainment (10%)</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
-                                        <span class="text-sm">Utilities (8%)</span>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <div class="w-3 h-3 rounded-full bg-gray-500 mr-2"></div>
-                                        <span class="text-sm">Others (7%)</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Monthly Income & Expenses -->
-                        <div class="card rounded-xl p-4">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-semibold">Monthly Income & Expenses</h3>
-                                <div class="relative">
-                                    <select class="bg-gray-700 text-sm rounded-lg px-3 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-400">
-                                        <option>Last 6 Months</option>
-                                        <option>Last Year</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <canvas id="monthlyChart" height="200"></canvas>
-                        </div>
-                    </div>
-                    
-                    <!-- Recent Transactions -->
-                    <div class="card rounded-xl p-4 mt-6">
+
+                    <!-- Transactions Table -->
+                    <div class="card rounded-xl p-4">
                         <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-semibold">Recent Transactions</h3>
+                            <h3 class="font-semibold">All Transactions</h3>
                             <button onclick="openModal('addTransactionModal')" class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
                                 <i class="fas fa-plus mr-1"></i> Add Transaction
                             </button>
@@ -302,148 +190,37 @@
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Amount</th>
                                         <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Member</th>
-                                        <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-700">
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Grocery Shopping</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-500/20 text-yellow-400">Food</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 22, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€89.75</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
-                                                    JS
+                                    @foreach ($transactions as $transaction)
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap">{{ $transaction->description }}</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <span class="px-2 py-1 text-xs rounded-full" style="color: {{ $transaction->category->color }};">{{ $transaction->category->name }}</span>
+                                            </td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-gray-300">{{ $transaction->created_at->format('M d, Y') }}</td>
+                                            <td class="px-4 py-3 whitespace-nowrap {{ $transaction->type == 'income' ? 'text-green-400' : 'text-red-400' }}">{{ $transaction->amount < 0 ? '-' : '+' }}€{{ abs($transaction->amount) }}</td>
+                                            <td class="px-4 py-3 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
+                                                        {{ $transaction->profile ? $transaction->profile->name[0] : ($transaction->user ? $transaction->user->name[0] : 'S') }}
+                                                    </div>
+                                                    <span class="text-sm">{{ $transaction->profile ? $transaction->profile->name : ($transaction->user ? $transaction->user->name : 'System Transaction') }}</span>
                                                 </div>
-                                                <span class="text-sm">John</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Monthly Salary</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-green-500/20 text-green-400">Income</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 20, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-green-400">+€2,850.00</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs mr-2">
-                                                    JS
-                                                </div>
-                                                <span class="text-sm">John</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Electricity Bill</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-purple-500/20 text-purple-400">Utilities</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 19, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€75.32</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs mr-2">
-                                                    ES
-                                                </div>
-                                                <span class="text-sm">Emma</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-3 whitespace-nowrap">Restaurant Dinner</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="px-2 py-1 text-xs rounded-full bg-red-500/20 text-red-400">Entertainment</span>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-300">Feb 18, 2025</td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-red-400">-€62.50</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-xs mr-2">
-                                                    ES
-                                                </div>
-                                                <span class="text-sm">Emma</span>
-                                            </div>
-                                        </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
-                                            <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
-                                            <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-right text-sm">
+                                                <button class="text-gray-400 hover:text-yellow-400 mr-2"><i class="fas fa-edit"></i></button>
+                                                <button class="text-gray-400 hover:text-red-400"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <div class="mt-4 text-center">
                             <a href="#transactions" class="text-sm text-yellow-400 hover:text-yellow-300">View All Transactions</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Financial Goals -->
-                    <div class="card rounded-xl p-4 mt-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-semibold">Financial Goals</h3>
-                            <button onclick="openModal('addGoalModal')" class="bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg px-3 py-1 text-sm font-medium flex items-center transition-colors duration-300">
-                                <i class="fas fa-plus mr-1"></i> Add Goal
-                            </button>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="bg-gray-800/70 rounded-lg p-4">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="font-medium text-yellow-400">Vacation Fund</h4>
-                                        <p class="text-sm text-gray-400">Summer vacation to Italy</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="font-medium">€750 / €2,000</p>
-                                        <p class="text-sm text-gray-400">Target: Aug 2025</p>
-                                    </div>
-                                </div>
-                                <div class="mt-2 w-full bg-gray-700 rounded-full h-2.5">
-                                    <div class="bg-yellow-400 h-2.5 rounded-full" style="width: 38%"></div>
-                                </div>
-                                <div class="mt-1 flex justify-between text-xs text-gray-400">
-                                    <span>38% completed</span>
-                                    <span>€1,250 remaining</span>
-                                </div>
-                            </div>
-                            <div class="bg-gray-800/70 rounded-lg p-4">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="font-medium text-yellow-400">Emergency Fund</h4>
-                                        <p class="text-sm text-gray-400">3 months of expenses</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="font-medium">€4,500 / €6,000</p>
-                                        <p class="text-sm text-gray-400">Target: Dec 2025</p>
-                                    </div>
-                                </div>
-                                <div class="mt-2 w-full bg-gray-700 rounded-full h-2.5">
-                                    <div class="bg-yellow-400 h-2.5 rounded-full" style="width: 75%"></div>
-                                </div>
-                                <div class="mt-1 flex justify-between text-xs text-gray-400">
-                                    <span>75% completed</span>
-                                    <span>€1,500 remaining</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 text-center">
-                            <a href="#goals" class="text-sm text-yellow-400 hover:text-yellow-300">View All Goals</a>
                         </div>
                     </div>
                 </section>
@@ -463,17 +240,18 @@
         </footer>
     </div>
 
-    <!-- Modals -->
     <!-- Add Transaction Modal -->
     <div id="addTransactionModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 hidden modal">
         <div class="card rounded-xl w-full max-w-md p-6 m-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">Add Transaction</h3>
+                <h3 class="text-xl font-semibold bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
+                    Add Transaction</h3>
                 <button onclick="closeModal('addTransactionModal')" class="text-gray-400 hover:text-white">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form>
+            <form action="{{ route('transaction.store') }}" method="POST">
+                @csrf
                 <div class="space-y-4">
                     <div>
                         <label class="block mb-1 text-sm">Transaction Type</label>
@@ -490,65 +268,81 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Description</label>
-                        <input type="text" name="description" 
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                            placeholder="Enter description" required>
+                        <input type="text" name="description" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" placeholder="Enter description" required>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Amount</label>
                         <div class="relative">
                             <span class="absolute left-3 top-2">€</span>
-                            <input type="number" name="amount" step="0.01" 
-                                class="w-full bg-gray-700 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                                placeholder="0.00" required>
+                            <input type="number" name="amount" step="0.01" class="w-full bg-gray-700 rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" placeholder="0.00" required>
                         </div>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Category</label>
-                        <select name="category_id"
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
-                            <option value="">Select Category</option>
-                            <option value="1">Housing</option>
-                            <option value="2">Food</option>
-                            <option value="3">Transportation</option>
-                            <option value="4">Entertainment</option>
-                            <option value="5">Utilities</option>
-                            <option value="6">Income</option>
-                            <option value="7">Others</option>
+                        <select name="category_id" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Date</label>
-                        <input type="date" name="date"
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
+                        <input type="date" name="date" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Family Member</label>
-                        <select name="family_member"
-                            class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
-                            <option value="1">John Smith (You)</option>
-                            <option value="2">Emma Smith</option>
-                            <option value="3">Liam Smith</option>
+                        <select name="profile_id" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" required>
+                            @foreach ($profiles as $profile)
+                                <option value="{{ $profile->id }}">{{ $profile->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
                         <label class="block mb-1 text-sm">Notes (Optional)</label>
-                        <textarea name="notes" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400"
-                            rows="3" placeholder="Add any additional notes"></textarea>
+                        <textarea name="notes" class="w-full bg-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-yellow-400" rows="3" placeholder="Add any additional notes"></textarea>
                     </div>
                 </div>
                 <div class="mt-6 flex justify-end space-x-3">
-                    <button type="button" onclick="closeModal('addTransactionModal')"
-                        class="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors duration-300">
+                    <button type="button" onclick="closeModal('addTransactionModal')" class="px-4 py-2 text-sm bg-gray-600 hover:bg-gray-500 rounded-lg transition-colors duration-300">
                         Cancel
                     </button>
-                    <button type="submit"
-                        class="px-4 py-2 text-sm bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-300">
+                    <button type="submit" class="px-4 py-2 text-sm bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-300">
                         Add Transaction
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.add('hidden');
+            }
+        });
+
+        // User Menu Toggle
+        document.getElementById('userMenuBtn').addEventListener('click', function() {
+            document.getElementById('userMenu').classList.toggle('hidden');
+        });
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#userMenuBtn')) {
+                document.getElementById('userMenu').classList.add('hidden');
+            }
+        });
+    </script>
 </body>
+
 </html>

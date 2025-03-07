@@ -40,6 +40,7 @@ Route::post('/category/update/{id}', [CategoryController::class, 'update'])->nam
 
 
 // Transaction routes
+Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 Route::post('/transaction/delete/{id}', [TransactionController::class, 'destroy'])->name('transaction.delete');
 Route::get('/transaction/{id}', [TransactionController::class, 'show'])->name('transaction.show');
