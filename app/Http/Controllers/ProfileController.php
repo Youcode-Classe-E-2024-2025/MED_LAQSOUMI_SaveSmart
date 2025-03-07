@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 
+use function Laravel\Prompts\progress;
+
 class ProfileController extends Controller
 {
 
@@ -65,10 +67,9 @@ class ProfileController extends Controller
         return view('profile.profile', ['profiles' => $profiles]);
     }
 
-    public function edit(string $id)
+    public function edit()
     {
-        $user = Auth::user();
-        $profiles = Profile::where('user_id', $user->id)->get();
+        $profiles = Profile::all();
         return view('profile.manage', ['profiles' => $profiles]);
     }
 
@@ -93,8 +94,8 @@ class ProfileController extends Controller
     
     public function destroy(string $id)
     {
-        $ProfileId = Profile::find($id);
-        $ProfileId->delete();
-        return redirect()->route('profile', ['id' => $ProfileId->id])->with('success', 'Profile deleted successfully');
+        $Profile = Profile::find($id);
+        $Profile->delete();
+        return redirect()->route('profile.manage', ['id' => $Profile->id])->with('success', 'Profile deleted successfully');
     }
 }

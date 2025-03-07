@@ -17,7 +17,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout.user');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profiles');
 Route::post('/profile/store', [ProfileController::class, 'store'])->name('profile.store');
 Route::get('/profile/{id}', [ProfileController::class, 'show'])->name('profile');
-Route::get('/profile/manage/{id}', [ProfileController::class, 'edit'])->name('profile.manage');
+Route::get('/profile/manage', [ProfileController::class, 'edit'])->name('profile.manage');
 Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::post('/profile/delete/{id}', [ProfileController::class, 'destroy'])->name('profile.delete');
 

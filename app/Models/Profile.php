@@ -23,7 +23,12 @@ class Profile extends Model
 
     public static function find($id)
     {
-        return Profile::where('id', $id)->first();
+        return Profile::where('id', $id)->get();
+    }
+
+    public static function findProfileByUserId($id)
+    {
+        return Profile::where('user_id', $id)->get();
     }
 
     // public function transactions()

@@ -90,9 +90,9 @@
                 </div>
             </div>
             
-            <button class="mt-12 py-3 px-8 bg-transparent border-2 border-white/50 text-white rounded text-base cursor-pointer transition-all duration-300 ease-in-out hover:border-amber-400 hover:text-amber-400" onclick="manageProfiles()">
-                Manage Profiles
-            </button>
+            <input class="mt-12 py-3 px-8 bg-transparent border-2 border-white/50 text-white rounded text-base cursor-pointer transition-all duration-300 ease-in-out hover:border-amber-400 hover:text-amber-400"
+                   type="button" value="Manage Profiles" onclick="window.location.href='{{ route('profile.manage') }}'">
+            </input>
         </main>
 
         <!-- Footer -->
@@ -218,11 +218,6 @@
             document.querySelector('input[name="avatar"]:checked')
                 .parentElement.querySelector('div').classList.add('border-amber-400');
         });
-        
-        // For the manage profiles functionality
-        function manageProfiles() {
-            window.location.href = "{{ route('profile.manage',['id' => $profile->id]) }}";
-        }
     </script>
 </body>
 </html>
