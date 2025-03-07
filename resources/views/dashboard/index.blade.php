@@ -154,7 +154,7 @@
                             <i class="fas fa-home w-6 text-yellow-400"></i>
                             <span>Overview</span>
                         </a>
-                        <a href="#transactions"
+                        <a href="{{ route('transaction.index') }}"
                             class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
                             <i class="fas fa-exchange-alt w-6 text-yellow-400"></i>
                             <span>Transactions</span>
