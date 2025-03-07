@@ -7,72 +7,24 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
-    {
-        $transactions = Transaction::with('category')->get();
-        return response()->json($transactions);
-    }
-
     public function store(Request $request)
     {
-        // Validate request
-        
-        $transaction = new Transaction();
-        $transaction->profile_id = $request->profile_id;
-        $transaction->user_id = auth()->user_id;
-        // Set other fields...
-        $transaction->save();
-        
-        // Return or redirect
-    }
-
-    public function show(Transaction $transaction)
-    {
-        return response()->json($transaction->load('category'));
-    }
-
-    public function update(Request $request, Transaction $transaction)
-    {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
+        $request = $request->validate([
+            'user_id' => 'required|integer',
+            'category_id' => 'required|integer',
             'amount' => 'required|numeric',
-            'type' => 'required|in:income,expense',
             'description' => 'nullable|string',
+            'transaction_date' => 'required|date',
         ]);
-
-        $transaction->update($request->all());
-
-        return response()->json($transaction);
+        
+        $transaction = Transaction::create([
+            'profile_id' => $request['profile_id'],
+            'category_id' => $request['category_id'],
+            'amount' => $request['amount'],
+            'description' => $request['description'],
+            'transaction_date' => $request['transaction_date'],
+        ]);
+        $transaction->save();
+        return redirect()->route('dashboard')->with('success', 'Transaction created successfully');
     }
-
-    public function destroy(Transaction $transaction)
-    {
-        $transaction->delete();
-        return response()->json(null, 204);
-    }
-
-    public function recentlyTransactions()
-    {
-        $transactions = Transaction::with('category')->latest()->limit(5)->get();
-        return response()->json($transactions);
-    }
-
-
-    public function monthlyTransactions()
-    {
-        $transactions = Transaction::with('category')
-            ->whereMonth('created_at', now()->month)
-            ->get();
-        return response()->json($transactions);
-    }
-
-    public function halfYearlyTransactions()
-    {
-        $transactions = Transaction::with('category')
-            ->whereBetween('created_at', [now()->subMonths(6), now()])
-            ->get();
-        return response()->json($transactions);
-    }
-
-    
 }

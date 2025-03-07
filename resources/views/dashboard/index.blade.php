@@ -469,7 +469,7 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form action="" method="POST">
+            <form action="{{ route('transaction.store') }}" method="POST">
                 @csrf
                 <div class="space-y-4">
                     <div>
@@ -659,7 +659,7 @@
                     }
                 }
             });
-            
+
             const monthlyChart = new Chart(document.getElementById('monthlyChart'), {
                 type: 'bar',
                 data: {
@@ -744,14 +744,12 @@
             }
         }
 
-        // Add this to your script section
         document.getElementById('editCategoryColor')?.addEventListener('input', function(e) {
             const color = e.target.value;
             document.getElementById('colorPreview').style.backgroundColor = color;
             document.getElementById('colorHexValue').textContent = color.toUpperCase();
         });
 
-        // Add this to your script section
         document.getElementById('editCategoryForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
             const categoryId = document.getElementById('editCategoryId').value;
@@ -817,18 +815,7 @@
             }
         });
 
-        // Form Submission Handlers
-        document.getElementById('addFamilyMemberForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your family member submission logic here
-            closeModal('addFamilyMemberModal');
-        });
-
-        document.getElementById('addCategoryForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your category submission logic here
-            closeModal('addCategoryModal');
-        });
+        
 
         // User Menu Toggle
         document.getElementById('userMenuBtn').addEventListener('click', function() {
@@ -841,7 +828,7 @@
                 document.getElementById('userMenu').classList.add('hidden');
             }
         });
-
+        
 
         
     </script>

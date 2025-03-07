@@ -19,12 +19,8 @@ class DashboardController extends Controller
         $profiles = Profile::where('user_id', $users->id)->get();
         $selectedProfile = Profile::findOrFail($profiles[0]->id);
         $categories = Category::select('id', 'name', 'color')->distinct()->get();
-        $transactions = Transaction::with('category')->get();
+        $transactions = Transaction::all();
         $recentTransactions = Transaction::with('category')->latest()->limit(5)->get();
-        // $categories = json_encode($categories);
-        // dd($categories);
-        // $transactions = json_encode($transactions);
-        // $recentTransactions = json_encode($recentTransactions);
         
         return view('dashboard.index', compact('profiles', 'selectedProfile', 'categories', 'transactions', 'recentTransactions'));
     }
