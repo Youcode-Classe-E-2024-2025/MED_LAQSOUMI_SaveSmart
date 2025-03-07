@@ -157,14 +157,21 @@
                         </div>
                     </div>
                     <div class="py-2 border-t border-gray-700">
-                        <p class="px-4 py-2 text-xs text-gray-500 uppercase">Categories</p>
-                        <a href="#manage-categories" class="sidebar-item flex items-center px-4 py-3 text-gray-300 hover:text-white">
-                            <i class="fas fa-tags w-6 text-yellow-400"></i>
-                            <span>Manage Categories</span>
-                        </a>
-                        <div class="px-4 py-2">
-                            <button onclick="openModal('addCategoryModal')" class="text-xs flex items-center text-yellow-400 hover:text-yellow-300">
-                                <i class="fas fa-plus-circle mr-1"></i> Add Category
+                        <p class="px-4 py-2 text-xs text-gray-500 uppercase font-semibold tracking-wider">Categories</p>
+                        <div class="space-y-1 px-2">
+                            @foreach($categories as $category)
+                                <a href="#" class="sidebar-item group flex items-center px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200">
+                                    <div class="w-5 h-5 mr-3 rounded flex items-center justify-center relative">
+                                        <span class="absolute inset-0 rounded-full" style="background-color: {{ $category->color ?? '#6B7280' }};"></span>
+                                        <i class="fas fa-circle text-xs relative z-10" style="color: {{ $category->color ?? '#6B7280' }}; filter: brightness(1.2);"></i>
+                                    </div>
+                                    <span class="text-sm font-medium group-hover:translate-x-0.5 transition-transform duration-200">{{ $category->name ?? 'Unnamed Category' }}</span>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="px-4 py-3">
+                            <button onclick="openModal('addCategoryModal')" class="w-full text-sm flex items-center justify-center px-3 py-1.5 rounded-lg border border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10 hover:border-yellow-500/50 transition-all duration-200">
+                                <i class="fas fa-plus-circle mr-2"></i> Add Category
                             </button>
                         </div>
                     </div>

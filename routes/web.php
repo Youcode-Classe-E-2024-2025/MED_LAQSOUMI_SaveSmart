@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 
 //Auth routes
 Route::get('/', [AuthController::class, 'Home'])->name('home');
@@ -23,3 +24,7 @@ Route::post('/profile/delete/{id}', [ProfileController::class, 'destroy'])->name
 
 // Dashboard routes
 Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+
+// Category routes
+Route::get('/category', [CategoryController::class, 'index'])->name('category');

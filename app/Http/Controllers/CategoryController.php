@@ -19,12 +19,14 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|unique:categories',
             'description' => 'nullable|string',
+            'color' => 'nullable|string',
         ]);
 
         $category = Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
+            'color' => $request->color ?? 'gray', // Default color if not provided
         ]);
 
         return response()->json($category, 201);
@@ -40,12 +42,14 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|unique:categories,name,' . $category->id,
             'description' => 'nullable|string',
+            'color' => 'nullable|string',
         ]);
 
         $category->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'description' => $request->description,
+            'color' => $request->color ?? 'gray', // Default color if not provided
         ]);
 
         return response()->json($category);
